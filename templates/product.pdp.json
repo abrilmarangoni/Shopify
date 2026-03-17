@@ -1,0 +1,267 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "pdp-main-product",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-moon.svg",
+            "text": "Fall asleep faster and wake up fully rested"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-muscle.svg",
+            "text": "Less joint pain and morning stiffness"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-calm.svg",
+            "text": "Calmer mood and lower daily stress"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-battery.svg",
+            "text": "More energy throughout the day"
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-cotton.svg",
+            "text": "400 TC organic cotton, the softest and strongest grounding sheet"
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "icon": "pdp-icon-washing.svg",
+            "text": "Machine washable and built to last"
+          }
+        },
+        "tab_1": {
+          "type": "info_tab",
+          "settings": {
+            "title": "Description",
+            "content": "<p>Experience deeper sleep, less pain, and calmer mornings, all from the comfort of your bed. Terra Therapy's grounding sheets are woven with 400 thread count organic cotton and 10% pure silver fiber to deliver a safe, comfortable, and effective grounding connection every night.</p><p>Plug into any grounded outlet and let Earth's natural electrons flow through the sheet to support your body's recovery, from better sleep and reduced inflammation to calmer nervous system function.</p><p>No EMFs. No batteries. Just effortless, science-backed healing while you sleep.</p>"
+          }
+        },
+        "tab_2": {
+          "type": "info_tab",
+          "settings": {
+            "title": "Who is it for?",
+            "content": "<p>Grounding can support you if you're:</p><ul><li>Struggling with poor sleep, racing thoughts, or insomnia</li><li>Waking up stiff, sore, or fatigued</li><li>Living with chronic pain, inflammation, or autoimmune issues</li><li>Experiencing anxiety, stress, or hormonal imbalance</li><li>Looking for a natural, non-invasive wellness solution</li></ul>"
+          }
+        },
+        "tab_3": {
+          "type": "info_tab",
+          "settings": {
+            "title": "Shipping and returns",
+            "content": "<ul><li>Free U.S. shipping on orders over $100</li><li>Fast delivery: 2–6 days (U.S. & Canada), 7–10 days (EU & international)</li><li>90-Day Money-Back Guarantee: Try it risk-free. If you don't feel the benefits, send it back. No questions asked.</li><li>Returns: Contact our support team for easy return instructions. Products must be in good condition.</li><li>Support: Our team is available 24/7 to help with ordering, setup, or troubleshooting.</li></ul>"
+          }
+        },
+        "tab_4": {
+          "type": "info_tab",
+          "settings": {
+            "title": "Care Instructions",
+            "content": "<p>To maintain conductivity and extend the life of your grounding sheet:</p><ul><li>Wash on gentle cycle with mild detergent</li><li>Avoid bleach, fabric softeners, or dryer sheets</li><li>Air dry when possible, or tumble dry on low</li><li>Do not dry clean</li><li>Wash regularly to remove body oils that can affect performance</li></ul><p>We include full care instructions in the box, and our customer team is always available if you need help.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6",
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4"
+      ],
+      "settings": {
+        "badge_limited_text": "Limited Stock",
+        "badge_viewing_text": "23 people viewing this now",
+        "short_description": "Reduce inflammation, improve sleep, and calm your nervous system all while you sleep or relax, safely grounded at home.",
+        "benefits_heading": "Why you need this?",
+        "testimonials_heading": "Real People. Real Healing."
+      }
+    },
+    "trust-bar": {
+      "type": "pdp-trust-bar",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "pdp-icon-shield.svg",
+            "text": "90-Day Results-Backed Guarantee"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "pdp-icon-usa.svg",
+            "text": "Designed in USA"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "pdp-icon-package.svg",
+            "text": "Ships in 2–6 Days"
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "pdp-icon-tree.svg",
+            "text": "A Tree Planted per Order"
+          }
+        }
+      },
+      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
+      "settings": {}
+    },
+    "benefits": {
+      "type": "pdp-benefits",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-neurology.svg",
+            "image": "pdp-benefits-neurological.png",
+            "title": "Neurological & Mental Health",
+            "description": "Grounding helps calm and stabilize the nervous system, supporting those dealing with:",
+            "bullets": "Migraines & headaches|Neuropathy & brain fog|Anxiety, depression & mood swings|ADHD & focus issues|Insomnia & disrupted sleep"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-rheumatology.svg",
+            "image": "pdp-benefits-musculoskeletal.png",
+            "title": "Musculoskeletal Pain & Inflammation",
+            "description": "By reducing chronic inflammation, grounding can offer relief from:",
+            "bullets": "Arthritis (RA & OA)|Fibromyalgia|Joint, back & neck pain|Chronic fatigue syndrome|Post-exercise soreness"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-hematology.svg",
+            "image": "pdp-benefits-cardiovascular.png",
+            "title": "Cardiovascular & Circulatory Health",
+            "description": "Grounding supports healthy blood flow and thermal regulation. Ideal for those managing:",
+            "bullets": "Poor circulation|High blood pressure|Swollen legs & feet|Varicose veins|Cold extremities"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-immune.svg",
+            "image": "pdp-benefits-immune.png",
+            "title": "Immune & Inflammatory Conditions",
+            "description": "By calming the body's inflammatory response, grounding may support conditions like:",
+            "bullets": "Autoimmune flare-ups (Lupus, MS, RA)|Allergies & asthma|Inflammation-related skin issues"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-genetics.svg",
+            "image": "pdp-benefits-hormonal.png",
+            "title": "Hormonal & Metabolic Balance",
+            "description": "Grounding helps support hormone and metabolic regulation. Particularly helpful for:",
+            "bullets": "Menopause & perimenopause|PCOS & irregular cycles|Thyroid imbalance|Insulin resistance & blood sugar issues"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "icon": "pdp-icon-cardiology.svg",
+            "image": "pdp-benefits-specialized.png",
+            "title": "Specialized Support",
+            "description": "A daily grounding practice can also support:",
+            "bullets": "Injury & post-surgery recovery|Pregnancy support (with doctor approval)|Jet lag & circadian disruption|Skin health (eczema, psoriasis)|Athletic performance & muscle recovery"
+          }
+        }
+      },
+      "block_order": ["category_1", "category_2", "category_3", "category_4", "category_5", "category_6"],
+      "settings": {
+        "heading": "One Natural Solution. Whole-Body Benefits.",
+        "subheading": "<p>Grounding supports every major system in your body, helping relieve chronic symptoms, restore balance, and promote long-term wellness. <strong>Backed by 20+ years of research and thousands of customer results.<\/strong></p>",
+        "cta_text": "Explore the science behind these benefits"
+      }
+    },
+    "comparison": {
+      "type": "pdp-comparison",
+      "blocks": {
+        "competitor_1": {
+          "type": "competitor",
+          "settings": {
+            "name": "Sleeping Pills",
+            "image": "pdp-comparison-pills.png",
+            "how_it_works": "Sedate the brain with sleep-inducing chemicals",
+            "what_to_consider": "Tolerance builds, grogginess, not long-term safe",
+            "cost_over_time": "Ongoing",
+            "side_effects": "Dependency & side effects"
+          }
+        },
+        "competitor_2": {
+          "type": "competitor",
+          "settings": {
+            "name": "Pain Meds",
+            "image": "pdp-comparison-meds.png",
+            "how_it_works": "Block pain signals temporarily",
+            "what_to_consider": "Doesn't treat root cause, side effects common",
+            "cost_over_time": "High if chronic",
+            "side_effects": "Risk of addiction or long-term damage"
+          }
+        },
+        "competitor_3": {
+          "type": "competitor",
+          "settings": {
+            "name": "Chiropractor",
+            "image": "pdp-comparison-chiro.png",
+            "how_it_works": "Manual realignment of joints/spine",
+            "what_to_consider": "Frequent visits needed, temporary relief",
+            "cost_over_time": "High recurring cost",
+            "side_effects": "Not suitable for every condition"
+          }
+        },
+        "competitor_4": {
+          "type": "competitor",
+          "settings": {
+            "name": "Supplements",
+            "image": "pdp-comparison-supplements.png",
+            "how_it_works": "Target isolated symptoms like melatonin or blue light",
+            "what_to_consider": "Vary in effectiveness, often don't address the root",
+            "cost_over_time": "Ongoing",
+            "side_effects": "Often unproven or inconsistent"
+          }
+        }
+      },
+      "block_order": ["competitor_1", "competitor_2", "competitor_3", "competitor_4"],
+      "settings": {
+        "heading": "Why We Are Really Different",
+        "product_how_it_works": "Reconnects body to Earth's natural charge to reduce inflammation and improve sleep",
+        "product_what_to_consider": "Requires grounded outlet and direct skin contact for best results",
+        "product_cost": "One-time purchase",
+        "product_side_effects": "None - 100% safe, drug-free"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "trust-bar",
+    "benefits",
+    "comparison"
+  ]
+}

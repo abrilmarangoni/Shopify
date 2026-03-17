@@ -1,0 +1,103 @@
+{%- style -%}
+  .pdp-trust-bar {
+    background-color: #31331e;
+    padding: 1rem 1.25rem;
+    overflow: hidden;
+  }
+  .pdp-trust-bar__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+  .pdp-trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .pdp-trust-bar__icon {
+    width: 2.25rem; height: 2.25rem; flex-shrink: 0;
+  }
+  .pdp-trust-bar__icon img {
+    width: 100%; height: 100%; object-fit: contain;
+  }
+  .pdp-trust-bar__text {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 2.0625rem;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+  @media (min-width: 48rem) {
+    .pdp-trust-bar {
+      --u: calc(100vw / 1440px);
+      height: calc(91px * var(--u));
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    .pdp-trust-bar__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: calc(1178px * var(--u));
+      max-width: calc(100vw - (80px * var(--u)));
+      gap: calc(24px * var(--u));
+    }
+    .pdp-trust-bar__item { gap: calc(8px * var(--u)); }
+    .pdp-trust-bar__icon { width: calc(36px * var(--u)); height: calc(36px * var(--u)); }
+    .pdp-trust-bar__text {
+      font-size: calc(20px * var(--u));
+      line-height: calc(33px * var(--u));
+    }
+  }
+{%- endstyle -%}
+
+<section class="pdp-trust-bar" data-section-id="{{ section.id }}">
+  <div class="pdp-trust-bar__inner">
+    {%- for block in section.blocks -%}
+      <div class="pdp-trust-bar__item" {{ block.shopify_attributes }}>
+        <div class="pdp-trust-bar__icon">
+          {%- if block.settings.icon != blank -%}
+            <img src="{{ block.settings.icon | asset_url }}" alt="" width="36" height="36" loading="lazy">
+          {%- endif -%}
+        </div>
+        <span class="pdp-trust-bar__text">{{ block.settings.text }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP - Trust Bar",
+  "tag": "section",
+  "class": "pdp-trust-bar-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon filename (from assets)" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Trust badge text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP - Trust Bar",
+      "blocks": [
+        { "type": "trust_item", "settings": { "text": "90-Day Results-Backed Guarantee" } },
+        { "type": "trust_item", "settings": { "text": "Designed in USA" } },
+        { "type": "trust_item", "settings": { "text": "Ships in 2–6 Days" } },
+        { "type": "trust_item", "settings": { "text": "A Tree Planted per Order" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

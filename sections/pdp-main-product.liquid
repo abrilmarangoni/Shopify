@@ -1,0 +1,988 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign compare_price = current_variant.compare_at_price
+  assign current_price = current_variant.price
+  assign saving_percentage = 0
+  if compare_price > current_price
+    assign diff = compare_price | minus: current_price
+    assign saving_percentage = diff | times: 100.0 | divided_by: compare_price | round
+  endif
+%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap" rel="stylesheet">
+
+{%- assign fallbacks = "pdp-gallery-main.jpg,,pdp-gallery-2.jpg,pdp-gallery-3.jpg,pdp-gallery-5.jpg,pdp-gallery-6.jpg,pdp-gallery-7.jpg" | split: "," -%}
+
+<section class="pdp-hero" data-section-id="{{ section.id }}">
+  <div class="pdp-hero__layout">
+
+    <!-- ======= LEFT: IMAGE GALLERY ======= -->
+    <div class="pdp-hero__gallery">
+      <div class="pdp-hero__grid">
+        {% for i in (0..6) %}
+          <div class="pdp-hero__grid-cell{% if i == 0 %} pdp-hero__grid-cell--main{% endif %}">
+            {% if product.images[i] %}
+              {{ product.images[i] | image_url: width: 1380 | image_tag:
+                loading: 'eager',
+                alt: product.images[i].alt | default: product.title,
+                class: 'pdp-hero__grid-img'
+              }}
+            {% elsif fallbacks[i] != blank %}
+              <img class="pdp-hero__grid-img" src="{{ fallbacks[i] | asset_url }}" alt="{{ product.title }}" loading="{% if i == 0 %}eager{% else %}lazy{% endif %}">
+            {% else %}
+              <div class="pdp-hero__grid-empty"></div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="pdp-hero__carousel">
+        <div class="pdp-hero__carousel-slide">
+          <img class="pdp-hero__carousel-media" src="{{ 'pdp-mobile-main-1.png' | asset_url }}" alt="{{ product.title }}" loading="eager">
+        </div>
+        <div class="pdp-hero__carousel-slide">
+          <video class="pdp-hero__carousel-media pdp-hero__carousel-video" autoplay muted loop playsinline preload="metadata" aria-label="Product video">
+            <source src="{{ 'video.mp4' | asset_url }}" type="video/mp4">
+          </video>
+        </div>
+        <div class="pdp-hero__carousel-slide">
+          <img class="pdp-hero__carousel-media" src="{{ 'pdp-mobile-main-3.png' | asset_url }}" alt="{{ product.title }}" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= RIGHT: PRODUCT INFO ======= -->
+    <div class="pdp-hero__info">
+      <div class="pdp-hero__col">
+
+        <!-- Title / Badges / Description / Price (gap 10px) -->
+        <div class="pdp-hero__heading-group">
+          <h1 class="pdp-hero__title">{{ product.title }}</h1>
+
+          <div class="pdp-hero__badges">
+            {% if section.settings.badge_limited_text != blank %}
+              <span class="pdp-hero__badge pdp-hero__badge--limited">
+                <img src="{{ 'pdp-icon-limited.svg' | asset_url }}" alt="" width="20" height="20">
+                {{ section.settings.badge_limited_text }}
+              </span>
+            {% endif %}
+            {% if section.settings.badge_viewing_text != blank %}
+              <span class="pdp-hero__badge pdp-hero__badge--viewing">
+                <span class="pdp-hero__pulse"></span>
+                {{ section.settings.badge_viewing_text }}
+              </span>
+            {% endif %}
+          </div>
+
+          {% if section.settings.short_description != blank %}
+            <p class="pdp-hero__desc">{{ section.settings.short_description }}</p>
+          {% endif %}
+
+          <div class="pdp-hero__price">
+            {% if compare_price > current_price %}
+              <span class="pdp-hero__price--old">{{ compare_price | money }}</span>
+            {% endif %}
+            <span class="pdp-hero__price--now">{{ current_price | money }}</span>
+            {% if saving_percentage > 0 %}
+              <span class="pdp-hero__price--save">Save %{{ saving_percentage }} OFF</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        {% assign benefit_blocks = section.blocks | where: "type", "benefit" %}
+        {% if benefit_blocks.size > 0 %}
+          <div class="pdp-hero__benefits">
+            {% if section.settings.benefits_heading != blank %}
+              <p class="pdp-hero__benefits-label">{{ section.settings.benefits_heading }}</p>
+            {% endif %}
+            <div class="pdp-hero__benefits-grid">
+              {% for block in benefit_blocks %}
+                <div class="pdp-hero__benefit" {{ block.shopify_attributes }}>
+                  {% if block.settings.icon != blank %}
+                    <img src="{{ block.settings.icon | asset_url }}" alt="" width="24" height="24" loading="lazy">
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <p>{{ block.settings.text }}</p>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Add to Cart -->
+        {%- form 'product', product -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <button type="submit" class="pdp-hero__atc"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            {% if current_variant.available %}ADD TO CART{% else %}SOLD OUT{% endif %}
+          </button>
+        {%- endform -%}
+
+        <hr class="pdp-hero__hr">
+
+        <!-- Testimonials -->
+        <div class="pdp-hero__testimonials">
+          {% if section.settings.testimonials_heading != blank %}
+            <p class="pdp-hero__testimonials-label">{{ section.settings.testimonials_heading }}</p>
+          {% endif %}
+          <div class="pdp-hero__avatars">
+            {% for i in (1..5) %}
+              <div class="pdp-hero__avatar">
+                <img src="{{ 'pdp-avatar-' | append: i | append: '.png' | asset_url }}" alt="Customer {{ i }}" loading="lazy">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <hr class="pdp-hero__hr">
+
+        <!-- Tabs / Accordion -->
+        {% assign tab_blocks = section.blocks | where: "type", "info_tab" %}
+        {% if tab_blocks.size > 0 %}
+          <pdp-tabs class="pdp-hero__tabs">
+            <div class="pdp-hero__tabs-bar" role="tablist">
+              {% for block in tab_blocks %}
+                <button
+                  class="pdp-hero__tab-btn{% if forloop.first %} is-active{% endif %}"
+                  role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  aria-controls="tp-{{ block.id }}"
+                  data-idx="{{ forloop.index0 }}"
+                  {{ block.shopify_attributes }}
+                >{{ block.settings.title }}</button>
+              {% endfor %}
+            </div>
+
+            {% for block in tab_blocks %}
+              <div
+                class="pdp-hero__tab-panel{% if forloop.first %} is-active{% endif %}"
+                role="tabpanel"
+                id="tp-{{ block.id }}"
+                data-idx="{{ forloop.index0 }}"
+              >
+                <div class="pdp-hero__tab-body rte">{{ block.settings.content }}</div>
+              </div>
+            {% endfor %}
+
+            <div class="pdp-hero__accordion">
+              {% for block in tab_blocks %}
+                <details class="pdp-hero__acc"{% if forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
+                  <summary class="pdp-hero__acc-header">
+                    <span>{{ block.settings.title }}</span>
+                    <span class="pdp-hero__acc-icon" aria-hidden="true"></span>
+                  </summary>
+                  <div class="pdp-hero__tab-body rte">{{ block.settings.content }}</div>
+                </details>
+              {% endfor %}
+            </div>
+          </pdp-tabs>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ============================================================
+     PDP HERO — Pixel-Perfect from Figma
+     Figma: 1440×1872  |  Gallery 690px  |  Info 750px
+     Content 620px at left:736 top:48.4
+     ============================================================ */
+
+  .pdp-hero-section {
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(50% - 50vw) !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .pdp-hero {
+    --c-dark: #31331e;
+    --c-cta: #a8ca1b;
+    --c-cta-hover: #97b618;
+    --c-muted: rgba(49,51,30,.75);
+    --c-light: rgba(49,51,30,.5);
+    --f-heading: "Bogart Trial", "Playfair Display", Georgia, serif;
+    --f-title: "Recoleta Regular DEMO", "Recoleta DEMO", "Recoleta Regular", "Recoleta", "Recoleta Alt", "Playfair Display", Georgia, serif;
+    --f-body: "Figtree", system-ui, sans-serif;
+    width: 100%;
+    color: var(--c-dark);
+  }
+
+  .pdp-hero *, .pdp-hero *::before, .pdp-hero *::after { box-sizing: border-box; }
+  .pdp-hero img { display: block; max-width: 100%; height: auto; }
+
+  /* ---- Layout ---- */
+  .pdp-hero__layout { display: flex; flex-direction: column; gap: .8125rem; }
+
+  .pdp-hero__gallery {
+    background:
+      linear-gradient(90deg, rgba(212,206,186,.25) 0%, rgba(212,206,186,.25) 100%),
+      linear-gradient(90deg, #fff 0%, #fff 100%);
+  }
+
+  .pdp-hero__info { background: #fff; }
+
+  .pdp-hero__col {
+    display: flex;
+    flex-direction: column;
+    gap: .8125rem;
+    padding: 0;
+    width: 22.5rem;
+    max-width: 100%;
+  }
+
+  /* ---- Gallery: desktop grid (hidden on mobile) ---- */
+  .pdp-hero__grid { display: none; }
+
+  .pdp-hero__grid-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pdp-hero__grid-empty {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(135deg, #e8e5dc 0%, #d4ceba 100%);
+  }
+
+  /* ---- Gallery: mobile carousel ---- */
+  .pdp-hero__carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: .875rem;
+  }
+  .pdp-hero__carousel::-webkit-scrollbar { display: none; }
+  .pdp-hero__carousel-slide {
+    flex: 0 0 20.0625rem;
+    width: 20.0625rem;
+    height: 20.0625rem;
+    scroll-snap-align: start;
+  }
+  .pdp-hero__carousel-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pdp-hero__carousel-video { background: #000; }
+
+  /* ---- Heading group (gap 10px between title, badges, desc, price) ---- */
+  .pdp-hero__heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+  }
+
+  .pdp-hero__title {
+    font-family: var(--f-title);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  /* ---- Badges ---- */
+  .pdp-hero__badges {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .75rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .pdp-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-family: var(--f-body);
+    font-weight: 400;
+    line-height: 1.25rem;
+    border-radius: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .pdp-hero__badge--limited {
+    background: rgba(255,129,129,.29);
+    width: 9.0625rem;
+    height: 1.75rem;
+    padding: .25rem .5625rem;
+    font-size: 1rem;
+  }
+  .pdp-hero__badge--limited img { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+  .pdp-hero__badge--viewing {
+    background: rgba(122,166,111,.25);
+    width: 12.6875rem;
+    height: 1.75rem;
+    padding: .375rem .5rem;
+    font-size: .875rem;
+    gap: .25rem;
+  }
+
+  .pdp-hero__pulse {
+    width: .5rem; height: .5rem;
+    border-radius: 50%;
+    background: #4caf50;
+    display: inline-block;
+    animation: pdpPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pdpPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .5; transform: scale(.8); }
+  }
+
+  /* ---- Description ---- */
+  .pdp-hero__desc {
+    font-family: var(--f-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+  }
+
+  /* ---- Price ---- */
+  .pdp-hero__price {
+    display: flex;
+    align-items: flex-start;
+    gap: .79rem;
+    flex-wrap: nowrap;
+  }
+
+  .pdp-hero__price--old {
+    font-family: var(--f-title) !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.896rem;
+    line-height: 1.685rem;
+    letter-spacing: 0;
+    color: rgba(255,0,0,.5);
+    text-decoration: line-through;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 1px;
+  }
+
+  .pdp-hero__price--now {
+    font-family: var(--f-title) !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.896rem;
+    line-height: 1.685rem;
+    letter-spacing: 0;
+    color: #31331e;
+  }
+
+  .pdp-hero__price--save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(86,129,76,.5);
+    border-radius: 3.125rem;
+    padding: .3125rem .9375rem;
+    font-family: var(--f-body);
+    font-size: .842rem;
+    font-weight: 400;
+    line-height: 1.053rem;
+    color: #31331e;
+    white-space: nowrap;
+    width: 7.215rem;
+    height: 1.589rem;
+    flex: 0 0 auto;
+  }
+
+  /* ---- Benefits ---- */
+  .pdp-hero__benefits {
+    display: flex;
+    flex-direction: column;
+    gap: .8125rem;
+    width: 20.5625rem;
+  }
+
+  .pdp-hero__benefits-label {
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    margin: 0;
+  }
+
+  .pdp-hero__benefits-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: .875rem;
+    column-gap: 0;
+    width: 20.5625rem;
+  }
+
+  .pdp-hero__benefit {
+    display: flex;
+    flex-direction: column;
+    gap: .3125rem;
+  }
+
+  .pdp-hero__benefit img { width: 1.5rem; height: 1.5rem; flex-shrink: 0; }
+
+  .pdp-hero__benefit p {
+    font-family: var(--f-body);
+    font-size: .875rem;
+    line-height: normal;
+    margin: 0;
+  }
+  .pdp-hero__benefit:nth-child(1) { width: 9.375rem; }
+  .pdp-hero__benefit:nth-child(2) { width: 8.4375rem; }
+  .pdp-hero__benefit:nth-child(3) { width: 11.4375rem; }
+  .pdp-hero__benefit:nth-child(4) { width: 8.5625rem; }
+  .pdp-hero__benefit:nth-child(5) { width: 8.3125rem; }
+  .pdp-hero__benefit:nth-child(6) { width: 8.5625rem; }
+
+  /* ---- Add to Cart ---- */
+  .pdp-hero__atc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 4.1875rem;
+    background: var(--c-cta);
+    color: var(--c-dark);
+    border: none;
+    border-radius: 3.125rem;
+    font-family: var(--f-title);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: .02em;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .pdp-hero__atc:hover:not(:disabled) { background: var(--c-cta-hover); }
+  .pdp-hero__atc:disabled { opacity: .5; cursor: not-allowed; }
+  .pdp-hero form { margin: 0; width: 100%; }
+
+  /* ---- Divider ---- */
+  .pdp-hero__hr {
+    border: none;
+    border-top: 1px solid rgba(49,51,30,.12);
+    margin: 0;
+    width: 21.6875rem;
+    max-width: 616px;
+  }
+  .pdp-hero__col > .pdp-hero__hr:last-of-type { display: none; }
+
+  /* Mobile scope for frame 2:12 + 2:75 + 2:77 */
+  .pdp-hero form {
+    display: block;
+    width: 21.5rem; /* 344px frame */
+    max-width: 100%;
+    align-self: flex-start;
+    order: 3;
+    margin-top: 1.6875rem; /* 27px after first divider */
+  }
+  .pdp-hero__atc {
+    width: 17.625rem; /* 282px */
+    height: 4.1875rem; /* 67px */
+    margin: 0 auto;
+    border-radius: 3.125rem;
+    font-size: 1.25rem; /* 20px */
+    letter-spacing: 0;
+  }
+  .pdp-hero__testimonials,
+  .pdp-hero__tabs { display: none; }
+  .pdp-hero__col > .pdp-hero__hr:first-of-type {
+    order: 2;
+    width: 21.6875rem; /* 347px (2:72) */
+    margin-top: 0;
+  }
+  .pdp-hero__col > .pdp-hero__hr:last-of-type {
+    display: block;
+    order: 4;
+    width: 21.5rem; /* 344px (2:77) */
+    margin-top: 1.25rem; /* 20px after button */
+  }
+
+  /* ---- Testimonials ---- */
+  .pdp-hero__testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .pdp-hero__testimonials-label {
+    font-family: var(--f-heading);
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  .pdp-hero__avatars { display: flex; gap: 1rem; }
+
+  .pdp-hero__avatar {
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+  }
+
+  .pdp-hero__avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--c-dark);
+  }
+
+  /* ---- Tabs (desktop only) ---- */
+  .pdp-hero__tabs-bar { display: none; }
+  .pdp-hero__tab-panel { display: none; }
+  .pdp-hero__tab-panel.is-active { display: block; }
+
+  .pdp-hero__tab-body {
+    font-family: var(--f-body);
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: rgba(49,51,30,.75);
+  }
+  .pdp-hero__tab-body p { margin: 0 0 1.25rem; }
+  .pdp-hero__tab-body p:last-child { margin-bottom: 0; }
+  .pdp-hero__tab-body ul { padding-left: 1.25rem; margin: .5rem 0; }
+  .pdp-hero__tab-body li { margin-bottom: .25rem; }
+
+  /* ---- Accordion (mobile) ---- */
+  .pdp-hero__acc { border-bottom: 1px solid rgba(49,51,30,.12); }
+
+  .pdp-hero__acc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    cursor: pointer;
+    font-family: var(--f-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-dark);
+    list-style: none;
+  }
+  .pdp-hero__acc-header::-webkit-details-marker { display: none; }
+
+  .pdp-hero__acc-icon {
+    position: relative;
+    width: 1rem; height: 1rem;
+    flex-shrink: 0;
+  }
+  .pdp-hero__acc-icon::before,
+  .pdp-hero__acc-icon::after {
+    content: "";
+    position: absolute;
+    background: var(--c-dark);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .25s ease;
+  }
+  .pdp-hero__acc-icon::before { width: 1rem; height: 2px; }
+  .pdp-hero__acc-icon::after  { width: 2px; height: 1rem; }
+  .pdp-hero__acc[open] .pdp-hero__acc-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .pdp-hero__acc > .pdp-hero__tab-body { padding: 0 0 1rem; }
+
+  @media (max-width: 47.9375rem) {
+    .pdp-hero__tabs-bar,
+    .pdp-hero__tab-panel { display: none !important; }
+  }
+
+  /* ============================================================
+     DESKTOP  ≥ 768 px
+     Figma: gallery=690/1440=47.917%, info=750/1440=52.083%
+     Content: 620px wide, left:736 (46px into info), top:48.4px
+     ============================================================ */
+  @media (min-width: 48rem) {
+    .pdp-hero { --u: calc(100vw / 1440px); }
+
+    .pdp-hero__layout {
+      flex-direction: row;
+      align-items: stretch;
+      min-height: calc(1872px * var(--u));
+      gap: 0;
+    }
+
+    .pdp-hero__gallery {
+      width: 47.917%;
+      min-width: 47.917%;
+      flex-shrink: 0;
+    }
+
+    .pdp-hero__info {
+      width: 52.083%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .pdp-hero__col {
+      /* Figma node 0:10 -> w:620, top:48.4, left:736 (inside 750px info => 46px inset), gap:30 */
+      width: calc(620px * var(--u));
+      max-width: calc(100% - (86px * var(--u)));
+      margin: calc(48.4px * var(--u)) calc(40px * var(--u)) 0 calc(46px * var(--u));
+      padding: 0;
+      gap: calc(30px * var(--u));
+    }
+
+    /* Keep all right-column modules on the same 620px rail (Figma node 0:10) */
+    .pdp-hero__heading-group,
+    .pdp-hero__benefits,
+    .pdp-hero form,
+    .pdp-hero__testimonials,
+    .pdp-hero__tabs {
+      width: calc(620px * var(--u));
+      max-width: 100%;
+    }
+
+    .pdp-hero__heading-group {
+      min-height: calc(240px * var(--u));
+      gap: calc(10px * var(--u));
+    }
+
+    .pdp-hero__badges {
+      flex-wrap: nowrap;
+      min-height: calc(28px * var(--u));
+    }
+
+    .pdp-hero__desc { min-height: calc(50px * var(--u)); }
+
+    /* Gallery grid */
+    .pdp-hero__carousel { display: none; }
+
+    .pdp-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .pdp-hero__grid-cell--main { grid-column: 1 / -1; }
+
+    /* Typography — exact Figma px values */
+    .pdp-hero__title {
+      font-size: calc(48px * var(--u));
+      line-height: calc(50px * var(--u));
+    }
+
+    .pdp-hero__desc {
+      font-size: calc(16px * var(--u));
+      line-height: calc(20px * var(--u));
+    }
+
+    .pdp-hero__price { gap: calc(15px * var(--u)); }
+    .pdp-hero__price { flex-wrap: nowrap; }
+
+    .pdp-hero__badge--limited { font-size: calc(16px * var(--u)); }
+    .pdp-hero__badge--viewing { font-size: calc(14px * var(--u)); }
+    .pdp-hero__badge--limited { padding: calc(4px * var(--u)) calc(9px * var(--u)); }
+    .pdp-hero__badge--viewing { padding: calc(6px * var(--u)) calc(8px * var(--u)); }
+    .pdp-hero__badge--limited img { width: calc(20px * var(--u)); height: calc(20px * var(--u)); }
+    .pdp-hero__pulse { width: calc(8px * var(--u)); height: calc(8px * var(--u)); }
+
+    .pdp-hero__price--old {
+      font-size: calc(36px * var(--u));
+      line-height: calc(32px * var(--u));
+    }
+    .pdp-hero__price--now {
+      font-size: calc(36px * var(--u));
+      line-height: calc(32px * var(--u));
+    }
+    .pdp-hero__price--save {
+      font-size: calc(16px * var(--u));
+      width: calc(137px * var(--u));
+      height: calc(30px * var(--u));
+      padding: calc(5px * var(--u)) calc(15px * var(--u));
+      line-height: calc(20px * var(--u));
+      border-radius: calc(50px * var(--u));
+    }
+
+    .pdp-hero__benefits-grid {
+      display: grid;
+      grid-template-columns: calc(150px * var(--u)) calc(174px * var(--u)) calc(137px * var(--u));
+      column-gap: calc(77px * var(--u));
+      row-gap: calc(10px * var(--u));
+    }
+    .pdp-hero__benefit:nth-child(1),
+    .pdp-hero__benefit:nth-child(2),
+    .pdp-hero__benefit:nth-child(3),
+    .pdp-hero__benefit:nth-child(4),
+    .pdp-hero__benefit:nth-child(5),
+    .pdp-hero__benefit:nth-child(6) { width: auto; }
+    .pdp-hero__benefits { min-height: calc(225px * var(--u)); gap: calc(20px * var(--u)); }
+    .pdp-hero__benefits-label { font-size: calc(16px * var(--u)); line-height: calc(20px * var(--u)); }
+    .pdp-hero__benefit img { width: calc(24px * var(--u)); height: calc(24px * var(--u)); }
+    .pdp-hero__benefit p { font-size: calc(16px * var(--u)); line-height: calc(20px * var(--u)); }
+
+    .pdp-hero__atc {
+      font-size: calc(24px * var(--u));
+      height: calc(67px * var(--u));
+      width: calc(620px * var(--u));
+      border-radius: calc(50px * var(--u));
+      max-width: 100%;
+    }
+
+    .pdp-hero__hr { width: calc(616px * var(--u)); max-width: 100%; }
+    .pdp-hero__col > .pdp-hero__hr:last-of-type { display: block; }
+
+    /* Testimonials */
+    .pdp-hero__testimonials-label { font-size: calc(24px * var(--u)); text-align: left; }
+
+    .pdp-hero__avatars { gap: calc(28.85px * var(--u)); }
+
+    .pdp-hero__avatar {
+      width: calc(93.36px * var(--u));
+      height: calc(93.36px * var(--u));
+    }
+
+    .pdp-hero__avatar img {
+      width: calc(85.7px * var(--u));
+      height: calc(85.7px * var(--u));
+      border: none;
+      position: absolute;
+      top: calc(4.06px * var(--u));
+      left: calc(4.06px * var(--u));
+    }
+
+    .pdp-hero__avatar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1.35px solid var(--c-dark);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Tabs — exact Figma nodes 0:89..0:98 */
+    .pdp-hero__accordion { display: none; }
+    .pdp-hero form { display: block; }
+    .pdp-hero__testimonials { display: flex; }
+    .pdp-hero__tabs { display: block; }
+    .pdp-hero form {
+      width: calc(620px * var(--u));
+      order: initial;
+      margin-top: 0;
+      align-self: auto;
+    }
+    .pdp-hero__col > .pdp-hero__hr:first-of-type {
+      order: initial;
+      width: calc(616px * var(--u));
+    }
+    .pdp-hero__col > .pdp-hero__hr:last-of-type {
+      order: initial;
+      width: calc(616px * var(--u));
+      margin-top: 0;
+    }
+
+    .pdp-hero__tabs {
+      position: relative;
+      width: calc(620px * var(--u));
+      max-width: 100%;
+      min-height: calc(248.6px * var(--u));
+    }
+
+    .pdp-hero__tabs-bar {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, calc(155px * var(--u)));
+      width: calc(620px * var(--u));
+      height: calc(38.76px * var(--u));
+      margin-bottom: 0;
+    }
+
+    .pdp-hero__tabs-bar::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(38.76px * var(--u));
+      width: calc(620px * var(--u));
+      border-top: 1px solid rgba(49,51,30,.65);
+    }
+
+    .pdp-hero__tabs-bar::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(38.76px * var(--u) - (2px * var(--u)));
+      width: calc(4px * var(--u));
+      height: calc(4px * var(--u));
+      border-radius: 50%;
+      background: rgba(49,51,30,.85);
+      /* Dots at line joints + right edge, cleaner than thick markers */
+      box-shadow:
+        calc(155px * var(--u)) 0 0 rgba(49,51,30,.85),
+        calc(310px * var(--u)) 0 0 rgba(49,51,30,.85),
+        calc(465px * var(--u)) 0 0 rgba(49,51,30,.85),
+        calc(620px * var(--u)) 0 0 rgba(49,51,30,.85);
+    }
+
+    .pdp-hero__tab-btn {
+      padding: calc(2.4px * var(--u)) 0 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--f-body);
+      font-size: calc(16px * var(--u));
+      font-weight: 400;
+      line-height: calc(19px * var(--u));
+      color: var(--c-light);
+      text-align: center;
+      white-space: nowrap;
+      position: relative;
+      height: calc(29.629px * var(--u));
+      z-index: 1;
+    }
+
+    .pdp-hero__tab-btn[data-idx="2"] { padding-top: 0; height: calc(30px * var(--u)); }
+    .pdp-hero__tab-btn[data-idx="3"] { padding-top: calc(.4px * var(--u)); }
+
+    .pdp-hero__tab-btn::after {
+      content: '';
+      position: absolute;
+      top: calc(33.4px * var(--u));
+      left: 0;
+      width: calc(155px * var(--u));
+      height: 0;
+      background: transparent;
+    }
+
+    .pdp-hero__tab-btn:hover { color: var(--c-dark); }
+
+    .pdp-hero__tab-btn.is-active {
+      color: var(--c-dark);
+    }
+
+    .pdp-hero__tab-btn.is-active::after {
+      height: calc(13.389px * var(--u));
+      top: calc(33.4px * var(--u));
+      background: var(--c-dark);
+      border-radius: calc(32.87px * var(--u));
+    }
+
+    .pdp-hero__tab-panel {
+      position: absolute;
+      top: calc(68.6px * var(--u));
+      left: calc(4px * var(--u));
+      width: calc(615px * var(--u));
+    }
+    .pdp-hero__tab-body { width: calc(615px * var(--u)); font-size: calc(14px * var(--u)); line-height: calc(20px * var(--u)); }
+    .pdp-hero__tab-body p { margin: 0 0 calc(20px * var(--u)); }
+  }
+</style>
+
+<script>
+  if (!customElements.get('pdp-tabs')) {
+    class PdpTabs extends HTMLElement {
+      connectedCallback() {
+        this.querySelectorAll('.pdp-hero__tab-btn').forEach(btn => {
+          btn.addEventListener('click', () => this.switchTab(btn));
+        });
+      }
+
+      switchTab(btn) {
+        const idx = btn.dataset.idx;
+
+        this.querySelectorAll('.pdp-hero__tab-btn').forEach(b => {
+          const active = b.dataset.idx === idx;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', active);
+        });
+
+        this.querySelectorAll('.pdp-hero__tab-panel').forEach(p => {
+          p.classList.toggle('is-active', p.dataset.idx === idx);
+        });
+      }
+    }
+    customElements.define('pdp-tabs', PdpTabs);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "PDP - Product Hero",
+  "tag": "section",
+  "class": "pdp-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_limited_text",
+      "label": "Limited stock badge text",
+      "default": "Limited Stock"
+    },
+    {
+      "type": "text",
+      "id": "badge_viewing_text",
+      "label": "Viewing badge text",
+      "default": "23 people viewing this now"
+    },
+    {
+      "type": "text",
+      "id": "short_description",
+      "label": "Short product description"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Benefits heading",
+      "default": "Why you need this?"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_heading",
+      "label": "Testimonials heading",
+      "default": "Real People. Real Healing."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon filename (from assets)" },
+        { "type": "text", "id": "text", "label": "Benefit text" }
+      ]
+    },
+    {
+      "type": "info_tab",
+      "name": "Info Tab",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tab title" },
+        { "type": "richtext", "id": "content", "label": "Tab content" }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "PDP - Product Hero",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "pdp-icon-moon.svg", "text": "Fall asleep faster and wake up fully rested" } },
+        { "type": "benefit", "settings": { "icon": "pdp-icon-muscle.svg", "text": "Less joint pain and morning stiffness" } },
+        { "type": "benefit", "settings": { "icon": "pdp-icon-calm.svg", "text": "Calmer mood and lower daily stress" } },
+        { "type": "benefit", "settings": { "icon": "pdp-icon-battery.svg", "text": "More energy throughout the day" } },
+        { "type": "benefit", "settings": { "icon": "pdp-icon-cotton.svg", "text": "400 TC organic cotton, the softest and strongest grounding sheet" } },
+        { "type": "benefit", "settings": { "icon": "pdp-icon-washing.svg", "text": "Machine washable and built to last" } },
+        { "type": "info_tab", "settings": { "title": "Description" } },
+        { "type": "info_tab", "settings": { "title": "Who is it for?" } },
+        { "type": "info_tab", "settings": { "title": "Shipping & Returns" } },
+        { "type": "info_tab", "settings": { "title": "Care Instructions" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

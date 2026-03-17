@@ -1,0 +1,397 @@
+{%- style -%}
+  .pdp-comparison-section {
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(50% - 50vw) !important;
+    padding: 0 !important;
+  }
+  .pdp-comparison {
+    --c-bg: #f4f3ee;
+    --c-dark: #31331e;
+    --c-line: rgba(49, 51, 30, 0.18);
+    --c-cta: #a8ca1b;
+    --f-heading: "Bogart Trial", "Playfair Display", Georgia, serif;
+    --f-body: "Figtree", system-ui, sans-serif;
+    --f-cta: "Recoleta", "Playfair Display", Georgia, serif;
+    background-color: var(--c-bg);
+    padding: 2.25rem 0 2.5rem;
+    overflow: hidden;
+  }
+  .pdp-comparison__inner {
+    width: 100%;
+  }
+  .pdp-comparison__heading {
+    margin: 0 auto .75rem;
+    width: min(90vw, 72.375rem);
+    text-align: center;
+    font-family: var(--f-heading);
+    font-weight: 400;
+    font-size: 2.25rem;
+    line-height: 1.06;
+    color: var(--c-dark);
+  }
+  .pdp-comparison__scroller {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 1rem .25rem;
+  }
+  .pdp-comparison__scroller::-webkit-scrollbar { display: none; }
+  .pdp-comparison__canvas {
+    --u: 1;
+    width: calc(1313px * var(--u));
+    min-width: calc(1313px * var(--u));
+    margin: 0 auto;
+    position: relative;
+  }
+  .pdp-comparison__card {
+    width: calc(1274px * var(--u));
+    height: calc(511px * var(--u));
+    margin-left: calc(23px * var(--u));
+    border-radius: calc(5px * var(--u));
+    background: #fff;
+    box-shadow: 0 calc(10px * var(--u)) calc(25px * var(--u)) rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: visible;
+  }
+  .pdp-comparison__grid {
+    display: grid;
+    grid-template-columns:
+      calc(160px * var(--u))
+      calc(367px * var(--u))
+      calc(295px * var(--u))
+      calc(192px * var(--u))
+      calc(260px * var(--u));
+  }
+  .pdp-comparison__grid > *:not(:first-child) { border-left: 1px solid var(--c-line); }
+
+  .pdp-comparison__head {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(55px * var(--u));
+  }
+  .pdp-comparison__head-item {
+    padding-top: calc(24px * var(--u));
+    text-align: center;
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: calc(16px * var(--u));
+    line-height: calc(20px * var(--u));
+    color: var(--c-dark);
+    white-space: nowrap;
+  }
+
+  .pdp-comparison__highlight {
+    position: absolute;
+    left: calc(-23px * var(--u));
+    top: calc(55px * var(--u));
+    width: calc(1313px * var(--u));
+    height: calc(116px * var(--u));
+    border-radius: calc(5px * var(--u));
+    display: grid;
+    grid-template-columns:
+      calc(183px * var(--u))
+      calc(367px * var(--u))
+      calc(295px * var(--u))
+      calc(192px * var(--u))
+      calc(276px * var(--u));
+    background: #2f5e2e url('{{ "pdp-comparison-row-bg.png" | asset_url }}') center/cover no-repeat;
+    z-index: 2;
+  }
+  .pdp-comparison__highlight > *:not(:first-child) { border-left: 1px solid rgba(255,255,255,.14); }
+  .pdp-comparison__highlight-cell {
+    padding: calc(37px * var(--u)) calc(18px * var(--u)) 0;
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: calc(16px * var(--u));
+    line-height: calc(20px * var(--u));
+    color: #fff;
+  }
+  .pdp-comparison__highlight-cell.is-single { padding-top: calc(47px * var(--u)); }
+  .pdp-comparison__highlight-cell.is-cost { text-align: center; }
+  .pdp-comparison__product {
+    position: relative;
+    min-height: calc(116px * var(--u));
+    overflow: visible;
+  }
+  .pdp-comparison__horse-wrap {
+    position: absolute;
+    left: calc(67.876px * var(--u));
+    top: calc(-12px * var(--u));
+    width: calc(98.126px * var(--u));
+    height: calc(92.054px * var(--u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pdp-comparison__horse-clip {
+    position: relative;
+    width: calc(80.755px * var(--u));
+    height: calc(71.627px * var(--u));
+    border-radius: calc(5px * var(--u));
+    overflow: hidden;
+    transform: rotate(16.95deg);
+  }
+  .pdp-comparison__horse {
+    position: absolute;
+    left: -47.5%;
+    top: 3.81%;
+    width: 156.51%;
+    height: 176.46%;
+    max-width: none;
+  }
+  .pdp-comparison__logo-wrap {
+    position: absolute;
+    left: calc(19px * var(--u));
+    top: calc(61px * var(--u));
+    width: calc(154px * var(--u));
+    height: calc(38px * var(--u));
+    overflow: hidden;
+  }
+  .pdp-comparison__logo {
+    position: absolute;
+    left: 1.23%;
+    top: -2.62%;
+    width: 98.77%;
+    height: 102.73%;
+    max-width: none;
+  }
+
+  .pdp-comparison__rows {
+    position: absolute;
+    top: calc(171px * var(--u));
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  .pdp-comparison__row {
+    height: calc(80px * var(--u));
+    position: relative;
+  }
+  .pdp-comparison__row + .pdp-comparison__row::before {
+    content: "";
+    position: absolute;
+    left: calc(13px * var(--u));
+    right: calc(24px * var(--u));
+    top: 0;
+    border-top: 1px solid var(--c-line);
+  }
+  .pdp-comparison__cell {
+    padding: calc(18px * var(--u)) calc(18px * var(--u)) 0;
+    font-family: var(--f-body);
+    font-weight: 400;
+    font-size: calc(16px * var(--u));
+    line-height: calc(20px * var(--u));
+    color: var(--c-dark);
+  }
+  .pdp-comparison__cell.is-cost,
+  .pdp-comparison__cell.is-side {
+    padding-top: calc(28px * var(--u));
+  }
+  .pdp-comparison__cell.is-cost {
+    text-align: center;
+  }
+  .pdp-comparison__cell.is-consider-2,
+  .pdp-comparison__cell.is-side-2 {
+    padding-top: calc(17px * var(--u));
+  }
+  .pdp-comparison__solution {
+    padding: calc(6px * var(--u)) calc(10px * var(--u)) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: calc(6px * var(--u));
+  }
+  .pdp-comparison__mini-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .pdp-comparison__mini-wrap--1 { width: calc(27px * var(--u)); height: calc(43px * var(--u)); }
+  .pdp-comparison__mini-wrap--2 { width: calc(39px * var(--u)); height: calc(48px * var(--u)); }
+  .pdp-comparison__mini-wrap--3 { width: calc(57px * var(--u)); height: calc(45px * var(--u)); }
+  .pdp-comparison__mini-wrap--4 { width: calc(35px * var(--u)); height: calc(40px * var(--u)); }
+  .pdp-comparison__competitor-image {
+    position: absolute;
+    max-width: none;
+    display: block;
+  }
+  .pdp-comparison__competitor-image--1 { left: -75.31%; top: -27.78%; width: 243.21%; height: 156.35%; }
+  .pdp-comparison__competitor-image--2 { left: -74.43%; top: -58.14%; width: 259.24%; height: 211.13%; }
+  .pdp-comparison__competitor-image--3 { left: 0; top: 0; width: 100%; height: 126.67%; }
+  .pdp-comparison__competitor-image--4 { left: -51.56%; top: -35.51%; width: 200%; height: 175.64%; }
+  .pdp-comparison__competitor-name {
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: calc(16px * var(--u));
+    line-height: calc(20px * var(--u));
+    color: var(--c-dark);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .pdp-comparison__cta-wrap { text-align: center; }
+  .pdp-comparison__cta {
+    width: 100%;
+    max-width: 23.25rem;
+    height: 4.2rem;
+    margin-top: 1.6rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--c-cta);
+    color: var(--c-dark);
+    font-family: var(--f-cta);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  @media (min-width: 48rem) {
+    .pdp-comparison {
+      --u: calc(100vw / 1440px);
+      padding-top: calc(61.4px * var(--u));
+      padding-bottom: calc(56px * var(--u));
+      min-height: calc(798px * var(--u));
+    }
+    .pdp-comparison__heading {
+      width: calc(1158px * var(--u));
+      margin-bottom: calc(6px * var(--u));
+      font-size: calc(64px * var(--u));
+      line-height: calc(70px * var(--u));
+    }
+    .pdp-comparison__scroller {
+      overflow: visible;
+      padding: 0;
+    }
+    .pdp-comparison__canvas {
+      --u: calc(100vw / 1440px);
+      min-width: 0;
+    }
+    .pdp-comparison__cta {
+      width: calc(372px * var(--u));
+      max-width: none;
+      height: calc(67px * var(--u));
+      margin-top: calc(26px * var(--u));
+      font-size: calc(24px * var(--u));
+      line-height: calc(33px * var(--u));
+      letter-spacing: 0;
+    }
+  }
+{%- endstyle -%}
+
+<section class="pdp-comparison" data-section-id="{{ section.id }}">
+  <div class="pdp-comparison__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pdp-comparison__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pdp-comparison__scroller">
+      <div class="pdp-comparison__canvas">
+        <div class="pdp-comparison__card">
+          <div class="pdp-comparison__head pdp-comparison__grid">
+            <div class="pdp-comparison__head-item">Solution</div>
+            <div class="pdp-comparison__head-item">How it works</div>
+            <div class="pdp-comparison__head-item">What to consider</div>
+            <div class="pdp-comparison__head-item">Cost over time</div>
+            <div class="pdp-comparison__head-item">Side effects</div>
+          </div>
+
+          <div class="pdp-comparison__highlight">
+            <div class="pdp-comparison__product">
+              <div class="pdp-comparison__horse-wrap">
+                <div class="pdp-comparison__horse-clip">
+                  <img class="pdp-comparison__horse" src="{{ 'pdp-comparison-horse.png' | asset_url }}" alt="" width="81" height="72" loading="lazy">
+                </div>
+              </div>
+              <div class="pdp-comparison__logo-wrap">
+                <img class="pdp-comparison__logo" src="{{ 'pdp-logo-white.png' | asset_url }}" alt="Terra Therapy" width="154" height="38" loading="lazy">
+              </div>
+            </div>
+            <div class="pdp-comparison__highlight-cell">{{ section.settings.product_how_it_works }}</div>
+            <div class="pdp-comparison__highlight-cell">{{ section.settings.product_what_to_consider }}</div>
+            <div class="pdp-comparison__highlight-cell is-single is-cost">{{ section.settings.product_cost }}</div>
+            <div class="pdp-comparison__highlight-cell is-single">{{ section.settings.product_side_effects }}</div>
+          </div>
+
+          <div class="pdp-comparison__rows">
+            {%- for block in section.blocks limit: 4 -%}
+              <div class="pdp-comparison__row pdp-comparison__grid" {{ block.shopify_attributes }}>
+                <div class="pdp-comparison__solution">
+                  {%- if block.settings.image != blank -%}
+                    <div class="pdp-comparison__mini-wrap pdp-comparison__mini-wrap--{{ forloop.index }}">
+                      <img
+                        class="pdp-comparison__competitor-image pdp-comparison__competitor-image--{{ forloop.index }}"
+                        src="{{ block.settings.image | asset_url }}"
+                        alt="{{ block.settings.name }}"
+                        loading="lazy"
+                      >
+                    </div>
+                  {%- endif -%}
+                  <span class="pdp-comparison__competitor-name">{{ block.settings.name }}</span>
+                </div>
+                <div class="pdp-comparison__cell">{{ block.settings.how_it_works }}</div>
+                <div class="pdp-comparison__cell {% if forloop.index == 2 %}is-consider-2{% endif %}">{{ block.settings.what_to_consider }}</div>
+                <div class="pdp-comparison__cell is-cost">{{ block.settings.cost_over_time }}</div>
+                <div class="pdp-comparison__cell is-side {% if forloop.index == 2 %}is-side-2{% endif %}">{{ block.settings.side_effects }}</div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdp-comparison__cta-wrap">
+    {%- form 'product', product -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button type="submit" class="pdp-comparison__cta"
+        {%- unless product.selected_or_first_available_variant.available %} disabled{% endunless -%}>
+        ADD TO CART
+      </button>
+    {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP - Comparison",
+  "tag": "section",
+  "class": "pdp-comparison-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why We Are Really Different" },
+    { "type": "textarea", "id": "product_how_it_works", "label": "Product - How it works", "default": "Reconnects body to Earth's natural charge to reduce inflammation and improve sleep" },
+    { "type": "textarea", "id": "product_what_to_consider", "label": "Product - What to consider", "default": "Requires grounded outlet and direct skin contact for best results" },
+    { "type": "text", "id": "product_cost", "label": "Product - Cost over time", "default": "One-time purchase" },
+    { "type": "text", "id": "product_side_effects", "label": "Product - Side effects", "default": "None - 100% safe, drug-free" }
+  ],
+  "blocks": [
+    {
+      "type": "competitor",
+      "name": "Competitor",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Competitor" },
+        { "type": "text", "id": "image", "label": "Image filename (from assets)" },
+        { "type": "textarea", "id": "how_it_works", "label": "How it works" },
+        { "type": "textarea", "id": "what_to_consider", "label": "What to consider" },
+        { "type": "text", "id": "cost_over_time", "label": "Cost over time" },
+        { "type": "text", "id": "side_effects", "label": "Side effects" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP - Comparison",
+      "blocks": [
+        { "type": "competitor", "settings": { "name": "Sleeping Pills", "how_it_works": "Sedate the brain with sleep-inducing chemicals", "what_to_consider": "Tolerance builds, grogginess, not long-term safe", "cost_over_time": "Ongoing", "side_effects": "Dependency & side effects" } },
+        { "type": "competitor", "settings": { "name": "Pain Meds", "how_it_works": "Block pain signals temporarily", "what_to_consider": "Doesn't treat root cause, side effects common", "cost_over_time": "High if chronic", "side_effects": "Risk of addiction or long-term damage" } },
+        { "type": "competitor", "settings": { "name": "Chiropractor", "how_it_works": "Manual realignment of joints/spine", "what_to_consider": "Frequent visits needed, temporary relief", "cost_over_time": "High recurring cost", "side_effects": "Not suitable for every condition" } },
+        { "type": "competitor", "settings": { "name": "Supplements", "how_it_works": "Target isolated symptoms like melatonin or blue light", "what_to_consider": "Vary in effectiveness, often don't address the root", "cost_over_time": "Ongoing", "side_effects": "Often unproven or inconsistent" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
