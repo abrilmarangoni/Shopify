@@ -492,36 +492,6 @@
   }
   .pdp-hero__col > .pdp-hero__hr:last-of-type { display: none; }
 
-  /* Mobile scope for frame 2:12 + 2:75 + 2:77 */
-  .pdp-hero form {
-    display: block;
-    width: 21.5rem; /* 344px frame */
-    max-width: 100%;
-    align-self: flex-start;
-    order: 3;
-    margin-top: 1.6875rem; /* 27px after first divider */
-  }
-  .pdp-hero__atc {
-    width: 17.625rem; /* 282px */
-    height: 4.1875rem; /* 67px */
-    margin: 0 auto;
-    border-radius: 3.125rem;
-    font-size: 1.25rem; /* 20px */
-    letter-spacing: 0;
-  }
-  .pdp-hero__testimonials,
-  .pdp-hero__tabs { display: none; }
-  .pdp-hero__col > .pdp-hero__hr:first-of-type {
-    order: 2;
-    width: 21.6875rem; /* 347px (2:72) */
-    margin-top: 0;
-  }
-  .pdp-hero__col > .pdp-hero__hr:last-of-type {
-    display: block;
-    order: 4;
-    width: 21.5rem; /* 344px (2:77) */
-    margin-top: 1.25rem; /* 20px after button */
-  }
 
   /* ---- Testimonials ---- */
   .pdp-hero__testimonials {
@@ -612,9 +582,170 @@
 
   .pdp-hero__acc > .pdp-hero__tab-body { padding: 0 0 1rem; }
 
+  /* ============================================================
+     MOBILE  < 768 px   —   Figma node 2:10 (390 × 3424)
+     Container: 390px, padding 20px, gap 20px
+     ============================================================ */
   @media (max-width: 47.9375rem) {
-    .pdp-hero__tabs-bar,
+
+    /* ---- Container ---- */
+    .pdp-hero-section {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+    .pdp-hero {
+      width: 100%;
+      max-width: 24.375rem;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* ---- Layout ---- */
+    .pdp-hero__layout {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pdp-hero__gallery {
+      width: 100%;
+      background:
+        linear-gradient(90deg, rgba(212,206,186,.25) 0%, rgba(212,206,186,.25) 100%),
+        linear-gradient(90deg, #fff 0%, #fff 100%);
+    }
+
+    .pdp-hero__info {
+      width: 100%;
+      padding: 1.25rem;
+    }
+
+    .pdp-hero__col {
+      width: 100%;
+      max-width: 100%;
+      gap: 1.25rem;
+    }
+
+    /* ---- Carousel (visible on mobile) ---- */
+    .pdp-hero__grid { display: none !important; }
+    .pdp-hero__carousel { display: flex; gap: .875rem; }
+    .pdp-hero__carousel-slide {
+      flex: 0 0 20.0625rem;
+      width: 20.0625rem;
+      height: 20.0625rem;
+    }
+
+    /* ---- Heading ---- */
+    .pdp-hero__heading-group { gap: .625rem; }
+    .pdp-hero__title {
+      font-size: 1.5rem;
+      line-height: normal;
+      max-width: 19.625rem;
+    }
+
+    /* ---- Badges (same sizes) ---- */
+    .pdp-hero__badges { gap: .75rem; }
+
+    /* ---- Price ---- */
+    .pdp-hero__price { gap: .79rem; }
+    .pdp-hero__price--old {
+      font-size: 1.896rem;
+      line-height: 1.685rem;
+    }
+    .pdp-hero__price--now {
+      font-size: 1.896rem;
+      line-height: 1.685rem;
+    }
+    .pdp-hero__price--save {
+      font-size: .843rem;
+      line-height: 1.053rem;
+      width: auto;
+      height: 1.589rem;
+      padding: .263rem .79rem;
+      border-radius: 2.633rem;
+    }
+
+    /* ---- Benefits ---- */
+    .pdp-hero__benefits { width: 100%; max-width: 20.5625rem; }
+    .pdp-hero__benefits-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      row-gap: .875rem;
+      column-gap: 0;
+      width: 100%;
+      max-width: 20.5625rem;
+    }
+    .pdp-hero__benefit p { font-size: .875rem; }
+
+    /* ---- Dividers ---- */
+    .pdp-hero__hr {
+      width: 21.6875rem;
+      max-width: 100%;
+    }
+    .pdp-hero__col > .pdp-hero__hr:last-of-type {
+      display: block;
+      width: 21.5rem;
+    }
+
+    /* ---- Form / ATC ---- */
+    .pdp-hero form {
+      width: 21.5rem;
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .pdp-hero__atc {
+      width: 17.625rem;
+      height: 4.1875rem;
+      font-size: 1.25rem;
+      border-radius: 3.125rem;
+    }
+
+    /* ---- Testimonials ---- */
+    .pdp-hero__testimonials {
+      display: flex !important;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 21.5rem;
+      max-width: 100%;
+    }
+    .pdp-hero__testimonials-label {
+      font-size: 1.5rem;
+      line-height: normal;
+      text-align: center;
+      width: 100%;
+    }
+    .pdp-hero__avatars { gap: 1.731rem; }
+    .pdp-hero__avatar {
+      width: 5.6025rem;
+      height: 5.6025rem;
+    }
+    .pdp-hero__avatar img {
+      width: 5.143rem;
+      height: 5.143rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* ---- Tabs: hide desktop bar/panels, show accordion ---- */
+    .pdp-hero__tabs { display: block !important; width: 20.75rem; max-width: 100%; }
+    .pdp-hero__tabs-bar { display: none !important; }
     .pdp-hero__tab-panel { display: none !important; }
+    .pdp-hero__accordion { display: block; width: 100%; }
+
+    .pdp-hero__acc { border-bottom: 1px solid rgba(49,51,30,.12); }
+    .pdp-hero__acc-header {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--c-dark);
+    }
+    .pdp-hero__acc:not([open]) .pdp-hero__acc-header span:first-child {
+      color: rgba(49,51,30,.5);
+    }
+    .pdp-hero__tab-body {
+      font-size: .875rem;
+      line-height: 1.25rem;
+      color: rgba(49,51,30,.75);
+    }
   }
 
   /* ============================================================
