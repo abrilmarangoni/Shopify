@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap" rel="stylesheet">
 
-{%- assign fallbacks = "pdp-gallery-main.jpg,,pdp-gallery-2.jpg,pdp-gallery-3.jpg,pdp-gallery-5.jpg,pdp-gallery-6.jpg,pdp-gallery-7.jpg" | split: "," -%}
+{%- assign fallbacks = "pdp-gallery-main.jpg,,pdp-gallery-2.jpg,pdp-gallery-5.jpg,pdp-gallery-3.jpg,pdp-gallery-6.jpg,pdp-gallery-7.jpg" | split: "," -%}
 
 <section class="pdp-hero" data-section-id="{{ section.id }}">
   <div class="pdp-hero__layout">
@@ -23,7 +23,11 @@
       <div class="pdp-hero__grid">
         {% for i in (0..6) %}
           <div class="pdp-hero__grid-cell{% if i == 0 %} pdp-hero__grid-cell--main{% endif %}">
-            {% if product.images[i] %}
+            {% if i == 1 %}
+              <video class="pdp-hero__grid-video" autoplay muted loop playsinline preload="metadata">
+                <source src="{{ 'video.mp4' | asset_url }}" type="video/mp4">
+              </video>
+            {% elsif product.images[i] %}
               {{ product.images[i] | image_url: width: 1380 | image_tag:
                 loading: 'eager',
                 alt: product.images[i].alt | default: product.title,
@@ -246,7 +250,8 @@
   /* ---- Gallery: desktop grid (hidden on mobile) ---- */
   .pdp-hero__grid { display: none; }
 
-  .pdp-hero__grid-img {
+  .pdp-hero__grid-img,
+  .pdp-hero__grid-video {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -317,7 +322,6 @@
     border-radius: 999px;
     width: fit-content;
     max-width: 100%;
-    overflow: hidden;
     white-space: nowrap;
   }
 
@@ -1045,36 +1049,21 @@
       margin-bottom: 0;
     }
 
-    .pdp-hero__tabs-bar::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: calc(38.76px * var(--u));
-      width: calc(620px * var(--u));
-      border-top: 1px solid rgba(49,51,30,.65);
-    }
-
     .pdp-hero__tabs-bar::after {
       content: '';
       position: absolute;
       left: 0;
-      top: calc(38.76px * var(--u) - (2px * var(--u)));
-      width: calc(4px * var(--u));
-      height: calc(4px * var(--u));
-      border-radius: 50%;
-      background: rgba(49,51,30,.85);
-      /* Dots at line joints + right edge, cleaner than thick markers */
-      box-shadow:
-        calc(155px * var(--u)) 0 0 rgba(49,51,30,.85),
-        calc(310px * var(--u)) 0 0 rgba(49,51,30,.85),
-        calc(465px * var(--u)) 0 0 rgba(49,51,30,.85),
-        calc(620px * var(--u)) 0 0 rgba(49,51,30,.85);
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(49,51,30,.35);
     }
 
     .pdp-hero__tab-btn {
-      padding: calc(2.4px * var(--u)) 0 0;
+      padding: 0;
       background: none;
       border: none;
+      border-right: 1px solid rgba(49,51,30,.35);
       cursor: pointer;
       font-family: var(--f-body);
       font-size: calc(16px * var(--u));
@@ -1084,21 +1073,25 @@
       text-align: center;
       white-space: nowrap;
       position: relative;
-      height: calc(29.629px * var(--u));
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .pdp-hero__tab-btn[data-idx="2"] { padding-top: 0; height: calc(30px * var(--u)); }
-    .pdp-hero__tab-btn[data-idx="3"] { padding-top: calc(.4px * var(--u)); }
+    .pdp-hero__tab-btn:last-child { border-right: none; }
 
     .pdp-hero__tab-btn::after {
       content: '';
       position: absolute;
-      top: calc(33.4px * var(--u));
-      left: 0;
+      bottom: calc(-6.5px * var(--u));
+      left: 50%;
+      transform: translateX(-50%);
       width: calc(155px * var(--u));
       height: 0;
       background: transparent;
+      border-radius: calc(32.87px * var(--u));
+      transition: height .2s ease, background .2s ease;
     }
 
     .pdp-hero__tab-btn:hover { color: var(--c-dark); }
@@ -1109,9 +1102,7 @@
 
     .pdp-hero__tab-btn.is-active::after {
       height: calc(13.389px * var(--u));
-      top: calc(33.4px * var(--u));
       background: var(--c-dark);
-      border-radius: calc(32.87px * var(--u));
     }
 
     .pdp-hero__tab-panel {
