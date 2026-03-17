@@ -249,6 +249,189 @@
     cursor: pointer;
   }
 
+  /* ---- Mobile: hide desktop scroller, show 2-card layout ---- */
+  .pdp-comparison__mobile { display: none; }
+
+  @media (max-width: 47.9375rem) {
+    .pdp-comparison-section {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+    .pdp-comparison {
+      padding: .5rem 0 1.5rem;
+    }
+    .pdp-comparison__heading {
+      font-size: 1.5rem;
+      line-height: normal;
+      width: 21.875rem;
+      margin-bottom: .56rem;
+    }
+    .pdp-comparison__scroller { display: none; }
+    .pdp-comparison__mobile {
+      display: block;
+      width: 100%;
+      max-width: 24.375rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .pdp-comparison__mobile-cards {
+      display: flex;
+      gap: .5rem;
+      align-items: stretch;
+    }
+
+    /* Left card: Solution */
+    .pdp-comparison__mobile-left {
+      width: 6.75rem;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: .212rem;
+      box-shadow: 0 .424rem 1.061rem rgba(0,0,0,.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .pdp-comparison__mobile-head {
+      padding: .75rem 0 .5rem;
+      text-align: center;
+      font-family: var(--f-body);
+      font-weight: 400;
+      font-size: .6875rem;
+      line-height: .8125rem;
+      color: var(--c-dark);
+    }
+    .pdp-comparison__mobile-product-row {
+      background: #2f5e2e url('{{ "pdp-comparison-row-bg.png" | asset_url }}') center/cover no-repeat;
+      border-radius: .212rem;
+      min-height: 4.9375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .375rem;
+    }
+    .pdp-comparison__mobile-product-imgs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .25rem;
+    }
+    .pdp-comparison__horse-clip--mobile {
+      width: 3.428rem;
+      height: 3.041rem;
+      border-radius: .212rem;
+      overflow: hidden;
+      transform: rotate(16.95deg);
+    }
+    .pdp-comparison__mobile-logo-wrap {
+      width: 6.125rem;
+      height: 1.5rem;
+      overflow: hidden;
+    }
+    .pdp-comparison__mobile-logo-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .pdp-comparison__mobile-sol-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .25rem;
+      padding: .5rem .25rem;
+      min-height: 3.4375rem;
+      border-top: 1px solid var(--c-line);
+    }
+    .pdp-comparison__mobile-sol-name {
+      font-family: var(--f-body);
+      font-weight: 400;
+      font-size: .6875rem;
+      line-height: .8125rem;
+      color: var(--c-dark);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .pdp-comparison__mobile-sol-row .pdp-comparison__mini-wrap--1 { width: 1.16rem; height: 1.8rem; }
+    .pdp-comparison__mobile-sol-row .pdp-comparison__mini-wrap--2 { width: 1.66rem; height: 2.035rem; }
+    .pdp-comparison__mobile-sol-row .pdp-comparison__mini-wrap--3 { width: 2.419rem; height: 1.91rem; }
+    .pdp-comparison__mobile-sol-row .pdp-comparison__mini-wrap--4 { width: 1.488rem; height: 1.694rem; }
+
+    /* Right card: Data */
+    .pdp-comparison__mobile-right {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      background: #fff;
+      border-radius: .212rem;
+      box-shadow: 0 .424rem 1.061rem rgba(0,0,0,.05);
+      overflow: hidden;
+    }
+    .pdp-comparison__mobile-col {
+      display: none;
+      flex-direction: column;
+    }
+    .pdp-comparison__mobile-col.is-active { display: flex; }
+
+    .pdp-comparison__mobile-highlight-cell {
+      background: #2f5e2e url('{{ "pdp-comparison-row-bg.png" | asset_url }}') center/cover no-repeat;
+      border-radius: .212rem;
+      min-height: 4.9375rem;
+      padding: .75rem .8125rem;
+      font-family: var(--f-body);
+      font-weight: 700;
+      font-size: .6875rem;
+      line-height: .8125rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+
+    .pdp-comparison__mobile-data-cell {
+      padding: .625rem .8125rem;
+      font-family: var(--f-body);
+      font-weight: 400;
+      font-size: .6875rem;
+      line-height: .8125rem;
+      color: var(--c-dark);
+      min-height: 3.4375rem;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid var(--c-line);
+    }
+
+    /* Dots */
+    .pdp-comparison__mobile-dots {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .pdp-comparison__mobile-dot {
+      width: .625rem;
+      height: .625rem;
+      border-radius: 50%;
+      border: none;
+      background: rgba(49,51,30,.25);
+      cursor: pointer;
+      padding: 0;
+      transition: background .2s;
+    }
+    .pdp-comparison__mobile-dot.is-active {
+      background: var(--c-cta);
+    }
+
+    /* CTA */
+    .pdp-comparison__cta {
+      width: 21.875rem;
+      max-width: 100%;
+      height: 3.94rem;
+      font-size: 1.25rem;
+      border-radius: 2.94rem;
+      margin-top: 1rem;
+    }
+  }
+
   @media (min-width: 48rem) {
     .pdp-comparison {
       --u: calc(100vw / 1440px);
@@ -343,6 +526,59 @@
       </div>
     </div>
 
+    <!-- ======= MOBILE: 2-card layout with dots ======= -->
+    <div class="pdp-comparison__mobile">
+      <div class="pdp-comparison__mobile-cards">
+        <!-- Left card: Solution -->
+        <div class="pdp-comparison__mobile-left">
+          <div class="pdp-comparison__mobile-head">Solution</div>
+          <div class="pdp-comparison__mobile-product-row">
+            <div class="pdp-comparison__mobile-product-imgs">
+              <div class="pdp-comparison__horse-clip pdp-comparison__horse-clip--mobile">
+                <img class="pdp-comparison__horse" src="{{ 'pdp-comparison-horse.png' | asset_url }}" alt="" loading="lazy">
+              </div>
+              <div class="pdp-comparison__mobile-logo-wrap">
+                <img src="{{ 'pdp-logo-white.png' | asset_url }}" alt="Terra Therapy" loading="lazy">
+              </div>
+            </div>
+          </div>
+          {%- for block in section.blocks limit: 4 -%}
+            <div class="pdp-comparison__mobile-sol-row">
+              {%- if block.settings.image != blank -%}
+                <div class="pdp-comparison__mini-wrap pdp-comparison__mini-wrap--{{ forloop.index }}">
+                  <img class="pdp-comparison__competitor-image pdp-comparison__competitor-image--{{ forloop.index }}" src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.name }}" loading="lazy">
+                </div>
+              {%- endif -%}
+              <span class="pdp-comparison__mobile-sol-name">{{ block.settings.name }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Right card: Data column (swipeable) -->
+        <div class="pdp-comparison__mobile-right">
+          {%- assign col_keys = "how_it_works,what_to_consider,cost_over_time,side_effects" | split: "," -%}
+          {%- assign col_heads = "How it works,What to consider,Cost over time,Side effects" | split: "," -%}
+          {%- assign product_keys = "product_how_it_works,product_what_to_consider,product_cost,product_side_effects" | split: "," -%}
+          {%- for col in col_keys -%}
+            <div class="pdp-comparison__mobile-col{% if forloop.first %} is-active{% endif %}" data-col-idx="{{ forloop.index0 }}">
+              <div class="pdp-comparison__mobile-head">{{ col_heads[forloop.index0] }}</div>
+              <div class="pdp-comparison__mobile-highlight-cell">{{ section.settings[product_keys[forloop.index0]] }}</div>
+              {%- for block in section.blocks limit: 4 -%}
+                <div class="pdp-comparison__mobile-data-cell">{{ block.settings[col] }}</div>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Pagination dots -->
+      <div class="pdp-comparison__mobile-dots">
+        {%- for i in (0..3) -%}
+          <button class="pdp-comparison__mobile-dot{% if i == 0 %} is-active{% endif %}" data-dot="{{ i }}" aria-label="Column {{ i | plus: 1 }}"></button>
+        {%- endfor -%}
+      </div>
+    </div>
+
     <div class="pdp-comparison__cta-wrap">
     {%- form 'product', product -%}
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
@@ -354,6 +590,22 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    const section = document.querySelector('.pdp-comparison__mobile');
+    if (!section) return;
+    const dots = section.querySelectorAll('.pdp-comparison__mobile-dot');
+    const cols = section.querySelectorAll('.pdp-comparison__mobile-col');
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = dot.dataset.dot;
+        cols.forEach(c => c.classList.toggle('is-active', c.dataset.colIdx === idx));
+        dots.forEach(d => d.classList.toggle('is-active', d.dataset.dot === idx));
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
