@@ -44,7 +44,7 @@
     padding: .625rem 1.25rem; border: 1px solid var(--b-dark);
     border-radius: 3.125rem; background: transparent; color: var(--b-dark);
     font-family: var(--f-body); font-size: 1rem; line-height: 1.25rem;
-    cursor: pointer; transition: background .25s, color .25s;
+    cursor: pointer; transition: background .4s ease, color .4s ease;
     width: auto; text-align: left; white-space: nowrap;
   }
   .pdp-benefits__pill:hover { background: rgba(49,51,30,.08); }
@@ -235,7 +235,9 @@
       height: 100%;
       max-width: none;
       object-fit: cover;
+      transition: opacity .5s ease;
     }
+    .pdp-benefits__bg-image img.is-fading { opacity: 0; }
     /* Match Figma crop/position per active category image node */
     .pdp-benefits__bg-image img[data-active-index="0"] {
       left: 0;
@@ -298,7 +300,7 @@
     .pdp-benefits__desktop-content {
       width: calc(363px * var(--u));
       opacity: 1;
-      transition: opacity .3s;
+      transition: opacity .5s ease;
     }
     .pdp-benefits__desktop-content.is-fading { opacity: 0; }
     .pdp-benefits__desktop-panel {
@@ -540,21 +542,28 @@
     function go(i) {
       if (i < 0 || i >= total || busy) return;
       busy = true; idx = i;
-      if (wrap) wrap.setAttribute('data-active-index', String(i));
       pills.forEach(function(p, n) { var a = n === i; p.classList.toggle('is-active', a); p.setAttribute('aria-selected', a); });
       wrappers.forEach(function(w, n) { w.classList.toggle('is-active', n === i); });
-      if (bgImg && wrappers[i]) {
-        var nextImage = wrappers[i].getAttribute('data-benefits-image');
-        if (nextImage) bgImg.setAttribute('src', nextImage);
-        bgImg.setAttribute('data-active-index', String(i));
-      }
+
+      if (bgImg) bgImg.classList.add('is-fading');
       if (wrap) {
+        wrap.setAttribute('data-active-index', String(i));
         wrap.classList.add('is-fading');
-        setTimeout(function() {
+      }
+
+      setTimeout(function() {
+        if (bgImg && wrappers[i]) {
+          var nextImage = wrappers[i].getAttribute('data-benefits-image');
+          if (nextImage) bgImg.setAttribute('src', nextImage);
+          bgImg.setAttribute('data-active-index', String(i));
+          bgImg.classList.remove('is-fading');
+        }
+        if (wrap) {
           panels.forEach(function(p, n) { p.style.display = n === i ? '' : 'none'; p.classList.toggle('is-active', n === i); });
-          wrap.classList.remove('is-fading'); busy = false;
-        }, 300);
-      } else { busy = false; }
+          wrap.classList.remove('is-fading');
+        }
+        busy = false;
+      }, 500);
     }
 
     function startTimer() {
