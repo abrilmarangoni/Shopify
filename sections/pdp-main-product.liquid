@@ -64,13 +64,16 @@
           <div class="pdp-hero__badges">
             {% if section.settings.badge_limited_text != blank %}
               <span class="pdp-hero__badge pdp-hero__badge--limited">
-                <img src="{{ 'pdp-icon-limited.svg' | asset_url }}" alt="" width="20" height="20">
+                <svg class="pdp-hero__limited-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <path d="M10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0ZM10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5Z" fill="#FF9696"></path>
+                  <circle cx="10" cy="10" r="5.625" fill="#FF3030" fill-opacity="0.71"></circle>
+                </svg>
                 {{ section.settings.badge_limited_text }}
               </span>
             {% endif %}
             {% if section.settings.badge_viewing_text != blank %}
               <span class="pdp-hero__badge pdp-hero__badge--viewing">
-                <span class="pdp-hero__pulse"></span>
+                <span class="pdp-hero__viewing-icon" aria-hidden="true"></span>
                 {{ section.settings.badge_viewing_text }}
               </span>
             {% endif %}
@@ -299,17 +302,20 @@
     flex-wrap: nowrap;
     gap: .75rem;
     align-items: center;
-    width: 100%;
+    width: fit-content;
   }
 
   .pdp-hero__badge {
     display: inline-flex;
     align-items: center;
-    gap: .5rem;
     font-family: var(--f-body);
     font-weight: 400;
+    color: #31331e;
     line-height: 1.25rem;
-    border-radius: 1.5rem;
+    border-radius: 999px;
+    width: fit-content;
+    max-width: 100%;
+    overflow: hidden;
     white-space: nowrap;
   }
 
@@ -319,8 +325,10 @@
     height: 1.75rem;
     padding: .25rem .5625rem;
     font-size: 1rem;
+    gap: .625rem;
+    border-radius: 1.5rem;
   }
-  .pdp-hero__badge--limited img { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+  .pdp-hero__limited-icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; display: block; }
 
   .pdp-hero__badge--viewing {
     background: rgba(122,166,111,.25);
@@ -328,20 +336,24 @@
     height: 1.75rem;
     padding: .375rem .5rem;
     font-size: .875rem;
-    gap: .25rem;
+    gap: .625rem;
+    border-radius: 1.5rem;
   }
 
-  .pdp-hero__pulse {
-    width: .5rem; height: .5rem;
+  .pdp-hero__viewing-icon {
+    width: .5rem;
+    height: .5rem;
     border-radius: 50%;
-    background: #4caf50;
+    background: rgba(42,172,17,.71);
+    flex-shrink: 0;
     display: inline-block;
+    box-shadow: 0 0 0 .0625rem rgba(104,196,86,.65), 0 0 .325rem .1rem rgba(104,196,86,.5);
     animation: pdpPulse 1.5s ease-in-out infinite;
   }
 
   @keyframes pdpPulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: .5; transform: scale(.8); }
+    50%      { opacity: .6; transform: scale(.85); }
   }
 
   /* ---- Description ---- */
@@ -659,7 +671,10 @@
 
     .pdp-hero__badges {
       flex-wrap: nowrap;
+      width: calc(360px * var(--u));
+      height: calc(28px * var(--u));
       min-height: calc(28px * var(--u));
+      gap: calc(12px * var(--u));
     }
 
     .pdp-hero__desc { min-height: calc(50px * var(--u)); }
@@ -688,12 +703,30 @@
     .pdp-hero__price { gap: calc(15px * var(--u)); }
     .pdp-hero__price { flex-wrap: nowrap; }
 
-    .pdp-hero__badge--limited { font-size: calc(16px * var(--u)); }
-    .pdp-hero__badge--viewing { font-size: calc(14px * var(--u)); }
-    .pdp-hero__badge--limited { padding: calc(4px * var(--u)) calc(9px * var(--u)); }
-    .pdp-hero__badge--viewing { padding: calc(6px * var(--u)) calc(8px * var(--u)); }
-    .pdp-hero__badge--limited img { width: calc(20px * var(--u)); height: calc(20px * var(--u)); }
-    .pdp-hero__pulse { width: calc(8px * var(--u)); height: calc(8px * var(--u)); }
+    .pdp-hero__badge--limited {
+      width: calc(145px * var(--u));
+      height: calc(28px * var(--u));
+      font-size: calc(16px * var(--u));
+      line-height: calc(20px * var(--u));
+      padding: calc(4px * var(--u)) calc(9px * var(--u));
+      gap: calc(10px * var(--u));
+      border-radius: calc(24px * var(--u));
+    }
+    .pdp-hero__badge--viewing {
+      width: calc(203px * var(--u));
+      height: calc(28px * var(--u));
+      font-size: calc(14px * var(--u));
+      line-height: calc(20px * var(--u));
+      padding: calc(6px * var(--u)) calc(8px * var(--u));
+      gap: calc(10px * var(--u));
+      border-radius: calc(24px * var(--u));
+    }
+    .pdp-hero__limited-icon { width: calc(20px * var(--u)); height: calc(20px * var(--u)); }
+    .pdp-hero__viewing-icon {
+      width: calc(8px * var(--u));
+      height: calc(8px * var(--u));
+      box-shadow: 0 0 0 calc(1px * var(--u)) rgba(104,196,86,.65), 0 0 calc(5px * var(--u)) calc(1.6px * var(--u)) rgba(104,196,86,.5);
+    }
 
     .pdp-hero__price--old {
       font-size: calc(36px * var(--u));
@@ -740,32 +773,39 @@
     .pdp-hero__hr { width: calc(616px * var(--u)); max-width: 100%; }
     .pdp-hero__col > .pdp-hero__hr:last-of-type { display: block; }
 
-    /* Testimonials */
-    .pdp-hero__testimonials-label { font-size: calc(24px * var(--u)); text-align: left; }
+    /* Testimonials — Figma nodes 0:70 / 0:71 */
+    .pdp-hero__testimonials {
+      gap: calc(20px * var(--u));
+      align-items: flex-start;
+    }
+    .pdp-hero__testimonials-label {
+      font-size: calc(24px * var(--u));
+      line-height: 1;
+      text-align: center;
+    }
 
-    .pdp-hero__avatars { gap: calc(28.85px * var(--u)); }
+    .pdp-hero__avatars {
+      gap: calc(28.85px * var(--u));
+      align-items: center;
+    }
 
     .pdp-hero__avatar {
       width: calc(93.36px * var(--u));
       height: calc(93.36px * var(--u));
+      display: grid;
+      place-items: center;
+      background-image: url('{{ "pdp-avatar-ring.svg" | asset_url }}');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .pdp-hero__avatar img {
       width: calc(85.7px * var(--u));
       height: calc(85.7px * var(--u));
       border: none;
-      position: absolute;
-      top: calc(4.06px * var(--u));
-      left: calc(4.06px * var(--u));
-    }
-
-    .pdp-hero__avatar::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 1.35px solid var(--c-dark);
       border-radius: 50%;
-      pointer-events: none;
+      object-fit: cover;
     }
 
     /* Tabs — exact Figma nodes 0:89..0:98 */
