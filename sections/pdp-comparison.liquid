@@ -295,7 +295,7 @@
       flex-direction: column;
     }
     .pdp-comparison__mobile-head {
-      padding: calc(12px * var(--mu)) 0 calc(8px * var(--mu));
+      padding: calc(16px * var(--mu)) 0 calc(8px * var(--mu));
       text-align: center;
       font-family: var(--f-body);
       font-weight: 400;
@@ -341,9 +341,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: calc(4px * var(--mu));
-      padding: calc(8px * var(--mu)) calc(4px * var(--mu));
-      min-height: calc(55px * var(--mu));
+      gap: calc(2px * var(--mu));
+      padding: calc(3px * var(--mu)) calc(4px * var(--mu));
+      min-height: calc(54px * var(--mu));
       border-top: 1px solid var(--c-line);
     }
     .pdp-comparison__mobile-sol-name {
@@ -364,17 +364,24 @@
     .pdp-comparison__mobile-right {
       flex: 1;
       min-width: 0;
-      position: relative;
       background: #fff;
       border-radius: calc(3.39px * var(--mu));
       box-shadow: 0 calc(6.78px * var(--mu)) calc(16.95px * var(--mu)) rgba(0,0,0,.05);
       overflow: hidden;
+      display: grid;
     }
     .pdp-comparison__mobile-col {
-      display: none;
+      grid-area: 1 / 1;
+      display: flex;
       flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s ease;
     }
-    .pdp-comparison__mobile-col.is-active { display: flex; }
+    .pdp-comparison__mobile-col.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .pdp-comparison__mobile-highlight-cell {
       background: #2f5e2e url('{{ "pdp-comparison-row-bg.png" | asset_url }}') center/cover no-repeat;
@@ -397,7 +404,7 @@
       font-size: calc(11px * var(--mu));
       line-height: calc(13px * var(--mu));
       color: var(--c-dark);
-      min-height: calc(55px * var(--mu));
+      min-height: calc(54px * var(--mu));
       display: flex;
       align-items: center;
       border-top: 1px solid var(--c-line);
@@ -418,7 +425,7 @@
       background: rgba(49,51,30,.25);
       cursor: pointer;
       padding: 0;
-      transition: background .2s;
+      transition: background .4s ease;
     }
     .pdp-comparison__mobile-dot.is-active {
       background: var(--c-cta);
@@ -596,17 +603,43 @@
 
 <script>
   (function() {
-    const section = document.querySelector('.pdp-comparison__mobile');
+    var section = document.querySelector('.pdp-comparison__mobile');
     if (!section) return;
-    const dots = section.querySelectorAll('.pdp-comparison__mobile-dot');
-    const cols = section.querySelectorAll('.pdp-comparison__mobile-col');
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const idx = dot.dataset.dot;
-        cols.forEach(c => c.classList.toggle('is-active', c.dataset.colIdx === idx));
-        dots.forEach(d => d.classList.toggle('is-active', d.dataset.dot === idx));
+    var dots = section.querySelectorAll('.pdp-comparison__mobile-dot');
+    var cols = section.querySelectorAll('.pdp-comparison__mobile-col');
+    var total = cols.length, idx = 0, timer = null;
+
+    function go(i) {
+      if (i === idx) return;
+      cols[idx].classList.remove('is-active');
+      dots[idx].classList.remove('is-active');
+      cols[i].classList.add('is-active');
+      dots[i].classList.add('is-active');
+      idx = i;
+    }
+
+    function startTimer() {
+      stopTimer();
+      if (total <= 1) return;
+      timer = setInterval(function() { go((idx + 1) % total); }, 10000);
+    }
+
+    function stopTimer() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    dots.forEach(function(dot, n) {
+      dot.addEventListener('click', function() {
+        go(n);
+        startTimer();
       });
     });
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) stopTimer(); else startTimer();
+    });
+
+    startTimer();
   })();
 </script>
 
