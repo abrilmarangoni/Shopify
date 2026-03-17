@@ -116,6 +116,8 @@
           </div>
         {% endif %}
 
+        <hr class="pdp-hero__hr pdp-hero__hr--pre-atc">
+
         <!-- Add to Cart -->
         {%- form 'product', product -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
@@ -491,6 +493,7 @@
     max-width: 616px;
   }
   .pdp-hero__col > .pdp-hero__hr:last-of-type { display: none; }
+  .pdp-hero__hr--pre-atc { display: none; }
 
 
   /* ---- Testimonials ---- */
@@ -584,9 +587,11 @@
 
   /* ============================================================
      MOBILE  < 768 px   —   Figma node 2:10 (390 × 3424)
-     Container: 390px, padding 20px, gap 20px
+     Proportional scaling: --mu = 100vw / 390
+     At 390px → 1:1.  At 320px → shrinks.  At 430px → grows.
      ============================================================ */
   @media (max-width: 47.9375rem) {
+    .pdp-hero { --mu: calc(100vw / 390px); }
 
     /* ---- Container ---- */
     .pdp-hero-section {
@@ -595,16 +600,13 @@
     }
     .pdp-hero {
       width: 100%;
-      max-width: 24.375rem;
+      max-width: calc(390px * var(--mu));
       margin: 0 auto;
       padding: 0;
     }
 
     /* ---- Layout ---- */
-    .pdp-hero__layout {
-      flex-direction: column;
-      gap: 0;
-    }
+    .pdp-hero__layout { flex-direction: column; gap: 0; }
 
     .pdp-hero__gallery {
       width: 100%;
@@ -615,136 +617,185 @@
 
     .pdp-hero__info {
       width: 100%;
-      padding: 1.25rem;
+      padding: calc(20px * var(--mu));
     }
 
     .pdp-hero__col {
       width: 100%;
       max-width: 100%;
-      gap: 1.25rem;
+      gap: calc(20px * var(--mu));
     }
 
-    /* ---- Carousel (visible on mobile) ---- */
+    /* ---- Carousel ---- */
     .pdp-hero__grid { display: none !important; }
-    .pdp-hero__carousel { display: flex; gap: .875rem; }
+    .pdp-hero__carousel { display: flex; gap: calc(14px * var(--mu)); }
     .pdp-hero__carousel-slide {
-      flex: 0 0 20.0625rem;
-      width: 20.0625rem;
-      height: 20.0625rem;
+      flex: 0 0 calc(321px * var(--mu));
+      width: calc(321px * var(--mu));
+      height: calc(321px * var(--mu));
     }
 
     /* ---- Heading ---- */
-    .pdp-hero__heading-group { gap: .625rem; }
+    .pdp-hero__heading-group { gap: calc(10px * var(--mu)); }
     .pdp-hero__title {
-      font-size: 1.5rem;
+      font-size: calc(24px * var(--mu));
       line-height: normal;
-      max-width: 19.625rem;
+      max-width: calc(314px * var(--mu));
     }
 
-    /* ---- Badges (same sizes) ---- */
-    .pdp-hero__badges { gap: .75rem; }
+    /* ---- Badges ---- */
+    .pdp-hero__badges { gap: calc(12px * var(--mu)); }
+    .pdp-hero__badge--limited {
+      width: calc(145px * var(--mu));
+      height: calc(28px * var(--mu));
+      padding: calc(4px * var(--mu)) calc(9px * var(--mu));
+      font-size: calc(16px * var(--mu));
+      line-height: calc(20px * var(--mu));
+      gap: calc(8px * var(--mu));
+      border-radius: calc(24px * var(--mu));
+    }
+    .pdp-hero__badge--viewing {
+      width: calc(203px * var(--mu));
+      height: calc(28px * var(--mu));
+      padding: calc(6px * var(--mu)) calc(8px * var(--mu));
+      font-size: calc(14px * var(--mu));
+      line-height: calc(20px * var(--mu));
+      gap: calc(4px * var(--mu));
+      border-radius: calc(24px * var(--mu));
+    }
+    .pdp-hero__limited-icon { width: calc(20px * var(--mu)); height: calc(20px * var(--mu)); }
+    .pdp-hero__viewing-icon {
+      width: calc(8px * var(--mu));
+      height: calc(8px * var(--mu));
+    }
+
+    /* ---- Description ---- */
+    .pdp-hero__desc {
+      font-size: calc(16px * var(--mu));
+      line-height: normal;
+    }
 
     /* ---- Price ---- */
-    .pdp-hero__price { gap: .79rem; }
+    .pdp-hero__price { gap: calc(12.64px * var(--mu)); }
     .pdp-hero__price--old {
-      font-size: 1.896rem;
-      line-height: 1.685rem;
+      font-size: calc(30.336px * var(--mu));
+      line-height: calc(26.965px * var(--mu));
     }
     .pdp-hero__price--now {
-      font-size: 1.896rem;
-      line-height: 1.685rem;
+      font-size: calc(30.336px * var(--mu));
+      line-height: calc(26.965px * var(--mu));
     }
     .pdp-hero__price--save {
-      font-size: .843rem;
-      line-height: 1.053rem;
+      font-size: calc(13.483px * var(--mu));
+      line-height: calc(16.853px * var(--mu));
       width: auto;
-      height: 1.589rem;
-      padding: .263rem .79rem;
-      border-radius: 2.633rem;
+      height: calc(25.427px * var(--mu));
+      padding: calc(4.213px * var(--mu)) calc(12.64px * var(--mu));
+      border-radius: calc(42.134px * var(--mu));
     }
 
     /* ---- Benefits ---- */
-    .pdp-hero__benefits { width: 100%; max-width: 20.5625rem; }
+    .pdp-hero__benefits { width: 100%; max-width: calc(329px * var(--mu)); }
+    .pdp-hero__benefits-label {
+      font-size: calc(16px * var(--mu));
+      line-height: calc(20px * var(--mu));
+    }
     .pdp-hero__benefits-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      row-gap: .875rem;
+      row-gap: calc(14px * var(--mu));
       column-gap: 0;
       width: 100%;
-      max-width: 20.5625rem;
+      max-width: calc(329px * var(--mu));
     }
-    .pdp-hero__benefit p { font-size: .875rem; }
+    .pdp-hero__benefit img { width: calc(24px * var(--mu)); height: calc(24px * var(--mu)); }
+    .pdp-hero__benefit p { font-size: calc(14px * var(--mu)); line-height: normal; }
+    .pdp-hero__benefit:nth-child(1) { width: calc(150px * var(--mu)); }
+    .pdp-hero__benefit:nth-child(2) { width: calc(135px * var(--mu)); }
+    .pdp-hero__benefit:nth-child(3) { width: calc(183px * var(--mu)); }
+    .pdp-hero__benefit:nth-child(4) { width: calc(137px * var(--mu)); }
+    .pdp-hero__benefit:nth-child(5) { width: calc(133px * var(--mu)); }
+    .pdp-hero__benefit:nth-child(6) { width: calc(137px * var(--mu)); }
 
     /* ---- Dividers ---- */
     .pdp-hero__hr {
-      width: 21.6875rem;
+      width: calc(347px * var(--mu));
       max-width: 100%;
+    }
+    .pdp-hero__hr--pre-atc {
+      display: block;
+      width: calc(347px * var(--mu));
     }
     .pdp-hero__col > .pdp-hero__hr:last-of-type {
       display: block;
-      width: 21.5rem;
+      width: calc(344px * var(--mu));
     }
 
     /* ---- Form / ATC ---- */
     .pdp-hero form {
-      width: 21.5rem;
+      width: calc(344px * var(--mu));
       max-width: 100%;
       display: flex;
       justify-content: center;
     }
     .pdp-hero__atc {
-      width: 17.625rem;
-      height: 4.1875rem;
-      font-size: 1.25rem;
-      border-radius: 3.125rem;
+      width: calc(282px * var(--mu));
+      height: calc(67px * var(--mu));
+      font-size: calc(20px * var(--mu));
+      border-radius: calc(50px * var(--mu));
     }
 
     /* ---- Testimonials ---- */
     .pdp-hero__testimonials {
       display: flex !important;
       flex-direction: column;
-      gap: 1.25rem;
-      width: 21.5rem;
+      gap: calc(20px * var(--mu));
+      width: calc(344px * var(--mu));
       max-width: 100%;
     }
     .pdp-hero__testimonials-label {
-      font-size: 1.5rem;
+      font-size: calc(24px * var(--mu));
       line-height: normal;
       text-align: center;
       width: 100%;
     }
-    .pdp-hero__avatars { gap: 1.731rem; }
+    .pdp-hero__avatars { gap: calc(27.699px * var(--mu)); }
     .pdp-hero__avatar {
-      width: 5.6025rem;
-      height: 5.6025rem;
+      width: calc(89.64px * var(--mu));
+      height: calc(89.64px * var(--mu));
     }
     .pdp-hero__avatar img {
-      width: 5.143rem;
-      height: 5.143rem;
+      width: calc(82.284px * var(--mu));
+      height: calc(82.284px * var(--mu));
       border-radius: 50%;
       object-fit: cover;
     }
 
     /* ---- Tabs: hide desktop bar/panels, show accordion ---- */
-    .pdp-hero__tabs { display: block !important; width: 20.75rem; max-width: 100%; }
+    .pdp-hero__tabs { display: block !important; width: calc(332px * var(--mu)); max-width: 100%; }
     .pdp-hero__tabs-bar { display: none !important; }
     .pdp-hero__tab-panel { display: none !important; }
     .pdp-hero__accordion { display: block; width: 100%; }
 
     .pdp-hero__acc { border-bottom: 1px solid rgba(49,51,30,.12); }
     .pdp-hero__acc-header {
-      font-size: 1rem;
+      font-size: calc(16px * var(--mu));
       font-weight: 700;
       color: var(--c-dark);
+      padding: calc(16px * var(--mu)) 0;
     }
     .pdp-hero__acc:not([open]) .pdp-hero__acc-header span:first-child {
       color: rgba(49,51,30,.5);
     }
     .pdp-hero__tab-body {
-      font-size: .875rem;
-      line-height: 1.25rem;
+      font-size: calc(14px * var(--mu));
+      line-height: calc(20px * var(--mu));
       color: rgba(49,51,30,.75);
+    }
+    .pdp-hero__acc-icon {
+      width: calc(12px * var(--mu));
+      height: calc(12px * var(--mu));
     }
   }
 
@@ -902,6 +953,7 @@
     }
 
     .pdp-hero__hr { width: calc(616px * var(--u)); max-width: 100%; }
+    .pdp-hero__hr--pre-atc { display: none; }
     .pdp-hero__col > .pdp-hero__hr:last-of-type { display: block; }
 
     /* Testimonials — Figma nodes 0:70 / 0:71 */
