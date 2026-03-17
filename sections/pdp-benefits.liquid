@@ -282,8 +282,8 @@
 
     .pdp-benefits__desktop-card {
       position: absolute;
-      right: calc(67px * var(--u));
-      top: calc(81.4px * var(--u));
+      right: calc(85px * var(--u));
+      top: calc(82px * var(--u));
       width: calc(580px * var(--u));
       height: calc(556px * var(--u));
       background: var(--b-dark);
@@ -291,79 +291,63 @@
       padding: 0;
       color: var(--b-white);
       z-index: 2;
-      display: block;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .pdp-benefits__desktop-content {
-      position: absolute;
-      left: calc(109px * var(--u));
-      top: calc(75.8px * var(--u));
       width: calc(363px * var(--u));
-      height: calc(439.2px * var(--u));
       opacity: 1;
       transition: opacity .3s;
     }
-    .pdp-benefits__desktop-content[data-active-index="0"] { left: calc(109px * var(--u)); top: calc(66.6px * var(--u)); width: calc(363px * var(--u)); height: calc(394px * var(--u)); }
-    .pdp-benefits__desktop-content[data-active-index="1"] { left: calc(109px * var(--u)); top: calc(53.6px * var(--u)); width: calc(363px * var(--u)); height: calc(444px * var(--u)); }
-    .pdp-benefits__desktop-content[data-active-index="2"] { left: calc(109px * var(--u)); top: calc(43px * var(--u)); width: calc(363px * var(--u)); height: calc(444px * var(--u)); }
-    .pdp-benefits__desktop-content[data-active-index="3"] { left: calc(109px * var(--u)); top: calc(63px * var(--u)); width: calc(363px * var(--u)); height: calc(404px * var(--u)); }
-    .pdp-benefits__desktop-content[data-active-index="4"] { left: calc(91px * var(--u)); top: calc(82px * var(--u)); width: calc(399px * var(--u)); height: calc(374px * var(--u)); }
-    .pdp-benefits__desktop-content[data-active-index="5"] { left: calc(123px * var(--u)); top: calc(64px * var(--u)); width: calc(334px * var(--u)); height: calc(371px * var(--u)); }
     .pdp-benefits__desktop-content.is-fading { opacity: 0; }
     .pdp-benefits__desktop-panel {
-      width: 100%;
-      height: 100%;
       display: flex;
       flex-direction: column;
-      row-gap: 0;
-      gap: calc(var(--panel-gap, 35px) * var(--u));
-      align-items: start;
-      overflow: visible;
+      gap: calc(35px * var(--u));
+      align-items: flex-start;
     }
     .pdp-benefits__desktop-card .pdp-benefits__card-title {
       margin: 0;
+      font-family: var(--f-heading);
+      font-weight: 400;
       font-size: calc(48px * var(--u));
       line-height: calc(50px * var(--u));
-      width: calc(var(--title-width, 363px) * var(--u));
-      height: calc(var(--title-height, 150px) * var(--u));
+      color: var(--b-white);
     }
-    .pdp-benefits__desktop-content[data-active-index="0"] .pdp-benefits__desktop-panel { --panel-gap: 35; --title-width: 363; --title-height: 100; --desc-height: 40; --bullets-width: 278; --bullets-height: 100; }
-    .pdp-benefits__desktop-content[data-active-index="1"] .pdp-benefits__desktop-panel { --panel-gap: 35; --title-width: 363; --title-height: 150; --desc-height: 40; --bullets-width: 211; --bullets-height: 100; }
-    .pdp-benefits__desktop-content[data-active-index="2"] .pdp-benefits__desktop-panel { --panel-gap: 35; --title-width: 363; --title-height: 150; --desc-height: 40; --bullets-width: 169; --bullets-height: 100; }
-    .pdp-benefits__desktop-content[data-active-index="3"] .pdp-benefits__desktop-panel { --panel-gap: 35; --title-width: 363; --title-height: 150; --desc-height: 40; --bullets-width: 303; --bullets-height: 60; }
-    .pdp-benefits__desktop-content[data-active-index="4"] .pdp-benefits__desktop-panel { --panel-gap: 35; --title-width: 404; --title-height: 100; --desc-height: 40; --bullets-width: 297; --bullets-height: 80; }
-    .pdp-benefits__desktop-content[data-active-index="5"] .pdp-benefits__desktop-panel { --panel-gap: 34; --title-width: 357; --title-height: 100; --desc-height: 20; --bullets-width: 324; --bullets-height: 100; }
     .pdp-benefits__desktop-card .pdp-benefits__card-desc {
       margin: 0;
       width: calc(349px * var(--u));
+      font-family: var(--f-body);
       font-size: calc(16px * var(--u));
       line-height: calc(20px * var(--u));
       font-weight: 700;
-      height: calc(var(--desc-height, 40px) * var(--u));
+      color: var(--b-white);
     }
     .pdp-benefits__desktop-card .pdp-benefits__card-bullets {
       margin: 0;
       padding-left: calc(24px * var(--u));
+      font-family: var(--f-body);
       font-size: calc(16px * var(--u));
       line-height: calc(20px * var(--u));
+      font-weight: 400;
+      color: var(--b-white);
       white-space: nowrap;
-      overflow: visible;
-      min-height: auto;
-      max-height: none;
-      width: calc(var(--bullets-width, 278px) * var(--u));
-      height: calc(var(--bullets-height, 100px) * var(--u));
-      scrollbar-width: none;
     }
-    .pdp-benefits__desktop-card .pdp-benefits__card-bullets::-webkit-scrollbar { display: none; }
+    .pdp-benefits__desktop-card .pdp-benefits__card-bullets li { margin-bottom: 0; }
     .pdp-benefits__desktop-card .pdp-benefits__card-cta {
-      width: calc(307px * var(--u));
-      height: calc(49px * var(--u));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: calc(5px * var(--u));
+      width: calc(307px * var(--u));
+      font-family: var(--f-body);
       font-size: calc(16px * var(--u));
       line-height: calc(20px * var(--u));
-      text-align: center;
-      align-self: center;
-      justify-content: center;
+      font-weight: 700;
+      color: var(--b-white);
+      text-decoration: underline;
+      text-underline-offset: calc(3px * var(--u));
     }
     .pdp-benefits__desktop-card .pdp-benefits__card-cta img { width: calc(24px * var(--u)); height: calc(24px * var(--u)); }
 
