@@ -2,15 +2,14 @@
 
 <style>
   .pdp-benefits {
-    --mu: calc(100vw / 390px);
     --b-bg: #f4f3ee;
     --b-dark: #31331e;
     --b-white: #ffffff;
-    --b-radius: calc(5px * var(--mu));
+    --b-radius: .3125rem;
     --f-heading: "Bogart Trial", "Playfair Display", Georgia, serif;
     --f-body: "Figtree", system-ui, sans-serif;
     background-color: var(--b-bg);
-    padding: calc(40px * var(--mu)) calc(16px * var(--mu));
+    padding: 2.5rem 1rem;
     font-family: var(--f-body);
     color: var(--b-dark);
     overflow: hidden;
@@ -23,36 +22,36 @@
     box-sizing: border-box !important;
   }
   .pdp-benefits__container { max-width: 90rem; margin: 0 auto; }
-  .pdp-benefits__header { text-align: center; margin-bottom: calc(24px * var(--mu)); }
+  .pdp-benefits__header { text-align: center; margin-bottom: 1.5rem; }
   .pdp-benefits__heading {
     font-family: var(--f-heading); font-weight: 400;
-    font-size: calc(24px * var(--mu)); line-height: 1.25;
-    margin: 0 0 calc(12px * var(--mu)); color: var(--b-dark);
+    font-size: 1.5rem; line-height: 1.25;
+    margin: 0 0 .75rem; color: var(--b-dark);
   }
   .pdp-benefits__subheading {
-    font-family: var(--f-body); font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu));
-    margin: 0 auto; max-width: calc(640px * var(--mu));
+    font-family: var(--f-body); font-size: 1rem; line-height: 1.25rem;
+    margin: 0 auto; max-width: 40rem;
   }
   .pdp-benefits__subheading p { margin: 0; }
   .pdp-benefits__subheading strong { font-weight: 700; }
 
-  .pdp-benefits__layout { display: flex; flex-direction: column; gap: calc(24px * var(--mu)); }
-  .pdp-benefits__pills { display: flex; flex-direction: column; gap: calc(10px * var(--mu)); }
-  .pdp-benefits__pill-wrapper { display: flex; flex-direction: column; }
+  .pdp-benefits__layout { display: flex; flex-direction: column; gap: 1.5rem; }
+  .pdp-benefits__pills { display: flex; flex-direction: column; gap: .625rem; align-items: flex-start; }
+  .pdp-benefits__pill-wrapper { display: flex; flex-direction: column; align-items: flex-start; }
 
   .pdp-benefits__pill {
-    display: flex; align-items: center; gap: calc(10px * var(--mu));
-    padding: calc(10px * var(--mu)) calc(20px * var(--mu)); border: 1px solid var(--b-dark);
-    border-radius: calc(50px * var(--mu)); background: transparent; color: var(--b-dark);
-    font-family: var(--f-body); font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu));
+    display: flex; align-items: center; gap: .625rem;
+    padding: .625rem 1.25rem; border: 1px solid var(--b-dark);
+    border-radius: 3.125rem; background: transparent; color: var(--b-dark);
+    font-family: var(--f-body); font-size: 1rem; line-height: 1.25rem;
     cursor: pointer; transition: background .25s, color .25s;
-    width: 100%; text-align: left; white-space: nowrap;
+    width: auto; text-align: left; white-space: nowrap;
   }
   .pdp-benefits__pill:hover { background: rgba(49,51,30,.08); }
   .pdp-benefits__pill.is-active {
     background: var(--b-dark); color: var(--b-white); font-weight: 700;
   }
-  .pdp-benefits__pill-icon { width: calc(24px * var(--mu)); height: calc(24px * var(--mu)); flex-shrink: 0; }
+  .pdp-benefits__pill-icon { width: 1.5rem; height: 1.5rem; flex-shrink: 0; }
   .pdp-benefits__pill-icon img {
     width: 100%;
     height: 100%;
@@ -65,7 +64,7 @@
 
   .pdp-benefits__mobile-card {
     display: none; background: var(--b-dark); border-radius: var(--b-radius);
-    padding: calc(18px * var(--mu)); margin-top: calc(10px * var(--mu)); color: var(--b-white);
+    padding: 1.125rem; margin-top: .625rem; color: var(--b-white);
     animation: pdpBenFade .3s ease;
   }
   .pdp-benefits__pill-wrapper.is-active .pdp-benefits__mobile-card { display: block; }
@@ -77,35 +76,71 @@
 
   .pdp-benefits__card-title {
     font-family: var(--f-heading); font-weight: 400;
-    font-size: calc(22px * var(--mu)); line-height: 1.2;
-    margin: 0 0 calc(10px * var(--mu)); color: var(--b-white);
+    font-size: 1.375rem; line-height: 1.2;
+    margin: 0 0 .625rem; color: var(--b-white);
   }
   .pdp-benefits__card-desc {
     font-family: var(--f-body); font-weight: 700;
-    font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu));
-    margin: 0 0 calc(12px * var(--mu)); color: var(--b-white);
+    font-size: 1rem; line-height: 1.25rem;
+    margin: 0 0 .75rem; color: var(--b-white);
   }
   .pdp-benefits__card-bullets {
-    list-style: disc; padding-left: calc(24px * var(--mu)); margin: 0 0 calc(16px * var(--mu));
-    font-family: var(--f-body); font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu));
+    list-style: disc; padding-left: 1.5rem; margin: 0 0 1rem;
+    font-family: var(--f-body); font-size: 1rem; line-height: 1.25rem;
     color: var(--b-white);
   }
-  .pdp-benefits__card-bullets li { margin-bottom: calc(4px * var(--mu)); }
+  .pdp-benefits__card-bullets li { margin-bottom: .25rem; }
   .pdp-benefits__card-cta {
-    display: inline-flex; align-items: center; gap: calc(5px * var(--mu));
+    display: inline-flex; align-items: center; gap: .3125rem;
     flex-direction: column;
     color: var(--b-white); font-family: var(--f-body);
-    font-size: calc(16px * var(--mu)); font-weight: 700;
-    text-decoration: underline; text-underline-offset: calc(3px * var(--mu));
+    font-size: 1rem; font-weight: 700;
+    text-decoration: underline; text-underline-offset: .1875rem;
     transition: opacity .2s;
   }
   .pdp-benefits__card-cta:hover { opacity: .8; }
-  .pdp-benefits__card-cta img { width: calc(24px * var(--mu)); height: calc(24px * var(--mu)); filter: brightness(0) invert(1); flex-shrink: 0; }
+  .pdp-benefits__card-cta img { width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1); flex-shrink: 0; }
 
   .pdp-benefits__desktop-area { display: none; }
   .pdp-benefits__nav { display: none; }
 
-  @media (min-width: 64rem) {
+  /* ---- MOBILE: proportional scaling ---- */
+  @media (max-width: 47.9375rem) {
+    .pdp-benefits {
+      --mu: calc(100vw / 390px);
+      padding: calc(40px * var(--mu)) calc(20px * var(--mu));
+    }
+    .pdp-benefits__header { margin-bottom: calc(20px * var(--mu)); text-align: center; }
+    .pdp-benefits__heading {
+      font-size: calc(24px * var(--mu)); line-height: normal;
+      margin: 0 0 calc(12px * var(--mu)); text-align: center;
+    }
+    .pdp-benefits__subheading {
+      font-size: calc(16px * var(--mu)); line-height: normal;
+      max-width: 100%; text-align: center;
+    }
+    .pdp-benefits__layout { gap: calc(20px * var(--mu)); }
+    .pdp-benefits__pills { gap: calc(10px * var(--mu)); }
+    .pdp-benefits__pill {
+      gap: calc(10px * var(--mu));
+      padding: calc(10px * var(--mu)) calc(20px * var(--mu));
+      border-radius: calc(50px * var(--mu));
+      font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu));
+    }
+    .pdp-benefits__pill-icon { width: calc(24px * var(--mu)); height: calc(24px * var(--mu)); }
+    .pdp-benefits__mobile-card {
+      border-radius: calc(5px * var(--mu));
+      padding: calc(18px * var(--mu)); margin-top: calc(10px * var(--mu));
+    }
+    .pdp-benefits__card-title { font-size: calc(22px * var(--mu)); margin-bottom: calc(10px * var(--mu)); }
+    .pdp-benefits__card-desc { font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu)); margin-bottom: calc(12px * var(--mu)); }
+    .pdp-benefits__card-bullets { font-size: calc(16px * var(--mu)); line-height: calc(20px * var(--mu)); padding-left: calc(24px * var(--mu)); margin-bottom: calc(16px * var(--mu)); }
+    .pdp-benefits__card-bullets li { margin-bottom: calc(4px * var(--mu)); }
+    .pdp-benefits__card-cta { font-size: calc(16px * var(--mu)); gap: calc(5px * var(--mu)); }
+    .pdp-benefits__card-cta img { width: calc(24px * var(--mu)); height: calc(24px * var(--mu)); }
+  }
+
+  @media (min-width: 48rem) {
     .pdp-benefits { --u: calc(100vw / 1440px); padding: 0; }
     .pdp-benefits__container {
       position: relative;
